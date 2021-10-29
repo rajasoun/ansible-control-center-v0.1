@@ -1,4 +1,4 @@
 ### Private Key File Path is Of the Guest Controller Machine & Not the Host ###
 ansible-control-center   ansible_connection=local
-monitor                  ansible_ssh_host=<IP_ADDRESS>  ansible_ssh_user=ansible  ansible_ssh_private_key_file=/keys/monitor/id_rsa
-agent                    ansible_ssh_host=<IP_ADDRESS>  ansible_ssh_user=ansible  ansible_ssh_private_key_file=/keys/agent/id_rsa
+monitor                  ansible_ssh_host=<IP_ADDRESS>  ansible_ssh_user=ansible  ansible_ssh_private_key_file=/keys/id_rsa
+agent                    ansible_ssh_host=<IP_ADDRESS>  ansible_ssh_user=ansible  ansible_ssh_private_key_file=/keys/id_rsa

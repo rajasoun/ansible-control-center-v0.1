@@ -5,6 +5,11 @@ Ansible Control Center
 ## Getting Started:
 
 ```
+wget 
+```
+wget -O- -q https://raw.githubusercontent.com/rajasoun/ansible-control-center/main/key_configuration.sh | bash
+
+```
 git clone https://github.com/rajasoun/ansible-control-center
 cd ansible-control-center
 ./prepare.sh

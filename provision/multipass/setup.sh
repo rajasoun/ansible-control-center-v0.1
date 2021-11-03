@@ -26,10 +26,13 @@ function create_ansible_inventory_from_template(){
     local SSH_KEY="id_rsa"
     local ANSIBLE_INVENTORY_FILE_TEMPLATE="config/templates/inventory.hosts"
     local ANSIBLE_INVENTORY_FILE="inventory"
-    cp  $ANSIBLE_INVENTORY_FILE_TEMPLATE $ANSIBLE_INVENTORY_FILE
+    if [ ! -f $ANSIBLE_INVENTORY_FILE ];then 
+        cp  $ANSIBLE_INVENTORY_FILE_TEMPLATE $ANSIBLE_INVENTORY_FILE
+    fi 
 
     IP=$(multipass info "$VM_NAME" | grep IPv4 | awk '{print $2}')
     #@ToDo: Optimize Edits
+
     echo "$VM_NAME  ansible_ssh_host=$IP  ansible_ssh_user=ubuntu ansible_ssh_private_key_file=keys/id_rsa" >> $ANSIBLE_INVENTORY_FILE
     echo "${ANSIBLE_INVENTORY_FILE} generated for ${VM_NAME}"
 }

@@ -22,7 +22,8 @@ Add Key to the SSH Agent   : ssh-add ~/.ssh/id_ed25519 "
 ```
 git clone https://github.com/rajasoun/ansible-control-center
 cd ansible-control-center
-provision/multipass.sh
+provision/multipass/setup.sh
+provision/install.sh
 ```
 
 Update Inventory with IP Address for Monitor and Agents

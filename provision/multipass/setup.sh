@@ -24,31 +24,20 @@ function provision_vm(){
 
 function create_ansible_inventory_from_template(){
     local SSH_KEY="id_rsa"
-    local ANSIBLE_INVENTORY_TEMPLATE="$config/inventory"
-    local ANSIBLE_INVENTORY_FILE="$config/inventory"
-    cp "$ANSIBLE_INVENTORY_TEMPLATE" "$ANSIBLE_INVENTORY_FILE"
+    local ANSIBLE_INVENTORY_FILE_TEMPLATE="config/templates/inventory.hosts"
+    local ANSIBLE_INVENTORY_FILE="inventory"
+    cp  $ANSIBLE_INVENTORY_FILE_TEMPLATE $ANSIBLE_INVENTORY_FILE
 
     IP=$(multipass info "$VM_NAME" | grep IPv4 | awk '{print $2}')
     #@ToDo: Optimize Edits
-    file_replace_text "_sshkey_"    "/keys/${SSH_KEY}"        "$ANSIBLE_INVENTORY_FILE"
-    file_replace_text "_vm_name_"   "${VM_NAME}"              "$ANSIBLE_INVENTORY_FILE"
-    file_replace_text "_ip_"        "${IP}"                   "$ANSIBLE_INVENTORY_FILE"
+    echo "$VM_NAME \t ansible_ssh_host=$IP \t ansible_ssh_user=ubuntu ansible_ssh_private_key_file=keys/id_rsa" >> $ANSIBLE_INVENTORY_FILE
 
     echo "Ansibel Inventory -> ${ANSIBLE_INVENTORY_FILE} generated for ${VM_NAME} that is Provisioned with ${IP}"
 }
 
 provision_vm
+create_ansible_inventory_from_template
 multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center
-multipass exec control-center -- $VM_HOME/ansible-control-center/provision/install.sh
-multipass exec control-center -- ansible-galaxy install -r $VM_HOME/ansible-control-center/requirements.yml
-
-ansible-vault decrypt \
-    ~/.ansible/roles/rajasoun.ansible_role_mmonit/files/license.yml \
-    --vault-password-file ./keys/.vault_pass
-
-ansible-playbook \
-    -i ~/.ansible/roles/rajasoun.ansible_role_mmonit/inventory \
-    ~/.ansible/roles/rajasoun.ansible_role_mmonit/local.yml
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
 echo "$VM_NAME with IP : $MULTIPASS_VM_IP | READY"

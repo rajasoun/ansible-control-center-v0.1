@@ -11,7 +11,7 @@
     users_add_list:
       - name: ansible
         unlimited_superuser: true
-        ssh_key:  AAA..the-output-of-public-key.. user@host
-
+        ssh_key:  _SSH_KEY_
+        
   roles:
     - role: ansible-users  

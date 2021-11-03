@@ -1,5 +1,8 @@
 #!/usr/bin/env bash 
 
+VM_NAME=${VM_NAME:-"control-center"}
+VM_HOME=${VM_HOME:-"/home/ubuntu"}
+
 sudo apt update
 sudo apt install software-properties-common
 sudo add-apt-repository --yes --update ppa:ansible/ansible

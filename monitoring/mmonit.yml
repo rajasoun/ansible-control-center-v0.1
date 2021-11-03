@@ -1,0 +1,28 @@
+---
+
+- hosts: mmonit
+  become: true
+  become_method: sudo
+
+  vars:
+    mmonit_workspace: "/opt"
+    mmonit_setup_url: http://127.0.0.1
+
+    mmonit_server_ip: "{{ ansible_default_ipv4.address }}"
+    mmonit_server_hostname: "{{ ansible_hostname }}"
+
+    mmonit_admin_username: 'mmonit'
+    mmonit_admin_password: "{{ ansible_machine_id | hash('sha1') | hash('sha1') }}"
+
+
+  tasks:
+    - name: Display IPv4 Address
+      debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+    - name: "MMonit | Print Admin Password"
+      debug:
+        msg: "MMonit Admin Password {{ mmonit_admin_password }}"
+      when: mmonit_admin_password is defined
+
+  roles:
+    - role: rajasoun.ansible_role_mmonit
+

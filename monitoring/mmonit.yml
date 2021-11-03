@@ -13,7 +13,28 @@
 
     mmonit_admin_username: 'mmonit'
     mmonit_admin_password: "{{ ansible_machine_id | hash('sha1') | hash('sha1') }}"
+  
+    certificates:
+      - ssl_certificate.crt
+      - ssl_certificate_key.key
 
+  pre_tasks:
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /etc/certs/ssl
+        state: directory
+        mode: '0440'
+    - name: Copy  SSL certificates to Host
+      tags: ssl_certs
+      ansible.builtin.copy:
+        src: "certs/{{ item }}"
+        dest: "/etc/certs/ssl/{{ item }}"
+        owner: root
+        group: root
+        mode: "u=rw,g=r,o="
+        # mode: '0440'
+      with_items:
+        - "{{ certificates }}"
 
   tasks:
     - name: Display IPv4 Address

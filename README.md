@@ -33,3 +33,10 @@ ansible -i inventory -m ping all
 ansible-playbook -i inventory createusers.yml
 ```
 
+Install MMonit. Place SSL certs in monitoring/certs
+
+```
+ansible-vault decrypt ~/.ansible/roles/rajasoun.ansible_role_mmonit/files/license.yml
+ansible-playbook -i inventory monitoring/mmonit.yml
+```
+

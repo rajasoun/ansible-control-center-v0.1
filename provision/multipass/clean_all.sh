@@ -12,4 +12,4 @@ case "$MLIST" in
 esac
 
 multipass purge
-rm -fr config/cloud-init.yaml config/createusers.yal inventory keys/id_rsa keys/id_rsa.pub
+rm -fr config/cloud-init.yaml config/createusers.yml inventory keys/id_rsa keys/id_rsa.pub

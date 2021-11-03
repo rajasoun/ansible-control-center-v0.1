@@ -33,7 +33,8 @@ function create_ansible_inventory_from_template(){
     echo "$VM_NAME  ansible_ssh_host=$IP  ansible_ssh_user=ubuntu ansible_ssh_private_key_file=keys/id_rsa" >> $ANSIBLE_INVENTORY_FILE
     echo "${ANSIBLE_INVENTORY_FILE} generated for ${VM_NAME}"
 }
-
+echo "Provisioning $VM_NAME "
+echo "++++++++++++++++++++++"
 provision_vm
 create_ansible_inventory_from_template
 multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center

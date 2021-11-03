@@ -1,1 +1,5 @@
 .DS_STORE
+config/*.yml
+config/*.yaml
+keys/id*
+keys/.vault_password

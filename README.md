@@ -16,18 +16,16 @@ Check SSH Agent is Running : $(ssh-agent -s) "
 Add Key to the SSH Agent   : ssh-add ~/.ssh/id_ed25519 "
 ```
 
-## Getting Started
+## Getting Started (Testing)
 
 
 ```
-
 git clone https://github.com/rajasoun/ansible-control-center
 cd ansible-control-center
-./prepare.sh
+provision/multipass.sh
 ```
 
 Update Inventory with IP Address for Monitor and Agents
-update createusers.yml with public ssh key
 
 ```
 ansible -i inventory -m ping all

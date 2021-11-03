@@ -4,3 +4,5 @@ config/*.yaml
 keys/id*
 keys/.vault_password
 inventory
+*.key
+*.crt

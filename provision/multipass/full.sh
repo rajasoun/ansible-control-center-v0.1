@@ -32,7 +32,7 @@ function provision_vms(){
 
 start=$(date +%s)
 provision_vms
-multipass exec control-center -- ansible-control-center/provision/multipass/install.sh
+multipass exec control-center -- ansible-control-center/provision/multipass/install_to_cc.sh
 create_monit_playbook_from_template
 end=$(date +%s)
 runtime=$((end-start))

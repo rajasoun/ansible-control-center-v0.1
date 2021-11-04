@@ -64,6 +64,15 @@
         group: root
         mode: "u=rw,g=r,o=r"
 
+  post_tasks:
+    - name: Add Ansible inventory mappings to /etc/hosts
+      blockinfile:
+        path: /etc/hosts
+        block: |
+          {% for host in groups['all'] %}
+          {{ hostvars[host].ansible_host }} {{ host }}
+          {% endfor %}
+
   roles:
     - role: rajasoun.ansible_role_monit 
     - role: cloudalchemy.node_exporter

@@ -17,4 +17,6 @@ rm -fr config/cloud-init.yaml \
        config/ssh-config \
        inventory \
        keys/id_rsa \
-       keys/id_rsa.pub
+       keys/id_rsa.pub \
+       monitoring/monit.yml
+

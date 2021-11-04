@@ -49,8 +49,6 @@ function create_config_from_template() {
     file_replace_text "ssh-rsa.*$" "$(cat "$SSH_KEY_PATH"/"${SSH_KEY}".pub)" "$CLOUD_INIT_CONFIG_FILE"
 
     echo "$USER_CONFIG_FILE & $CLOUD_INIT_CONFIG_FILE Generated for $VM_NAME"
-
-
 }
 
 # Returns true (0) if this is an OS X server or false (1) otherwise.

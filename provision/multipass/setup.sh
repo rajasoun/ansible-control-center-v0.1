@@ -36,6 +36,22 @@ function create_ansible_inventory_from_template(){
     echo "$VM_NAME  ansible_ssh_host=$IP  ansible_ssh_user=ubuntu ansible_ssh_private_key_file=keys/id_rsa" >> $ANSIBLE_INVENTORY_FILE
     echo "${ANSIBLE_INVENTORY_FILE} generated for ${VM_NAME}"
 }
+
+function create_ssh_config_from_template() {
+    local SSH_TEMPLATE_FILE="config/templates/ssh/config"
+    local SSH_CONFIG_FILE="config/ssh-config"
+    if [ -f "$SSH_CONFIG_FILE" ]; then
+        echo "Reusing Existing SSH Config Files"
+        return 0
+    fi
+    echo "Generating Config Files..."
+    cp "$SSH_TEMPLATE_FILE" "$SSH_CONFIG_FILE"
+    IP=$(multipass info "$VM_NAME" | grep IPv4 | awk '{print $2}')
+    OCTET=$(echo $IP | awk -F '.' '{ print $1}')
+    file_replace_text "_GATEWAY_IP_.*$" "$OCTET" "$SSH_CONFIG_FILE"
+    echo "$SSH_CONFIG_FILE Generated for $VM_NAME"
+}
+
 echo "Provisioning $VM_NAME "
 echo "++++++++++++++++++++++"
 provision_vm

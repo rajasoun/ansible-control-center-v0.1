@@ -1,8 +1,10 @@
 .DS_STORE
 config/*.yml
 config/*.yaml
+config/ssh-config
 keys/id*
 keys/.vault_password
 inventory
 *.key
 *.crt
+

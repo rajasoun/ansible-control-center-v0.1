@@ -24,7 +24,7 @@
       tags: ssl_certs
       ansible.builtin.copy:
         src: "certs/{{ item }}"
-        dest: "/home/{{ ansible_user }}/traefik-reverse-proxy/config/certs/{{ item }}"
+        dest: "/home/{{ ansible_user }}/traefik-reverse-proxy/certs/{{ item }}"
         owner: root
         group: root
         mode: "u=rw,g=r,o=" #'0440'

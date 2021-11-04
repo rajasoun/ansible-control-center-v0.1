@@ -1,4 +1,4 @@
-- hosts: observability, dashboard, reverse-proxy
+- hosts: observability, reverse-proxy
   become: true
   become_method: sudo
 

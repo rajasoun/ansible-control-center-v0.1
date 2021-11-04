@@ -1,8 +1,6 @@
 ---
 
 - hosts: control-center
-  become: true
-  become_method: sudo
 
   tasks:
     - name: Add Ansible inventory mappings to /etc/hosts
@@ -18,6 +16,11 @@
       ansible.builtin.copy:
         src: "config/ssh-config"
         dest: "/home/ubuntu/.ssh/config"
-        owner: root
-        group: root
+        mode: "u=rw,g=r,o=r"
+
+    - name: Copy  Private Key to Host
+      tags: ssh_private_key
+      ansible.builtin.copy:
+        src: "../keys/id_rsa"
+        dest: "/home/ubuntu/.ssh/id_rsa"
         mode: "u=rw,g=r,o=r"

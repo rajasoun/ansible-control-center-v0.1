@@ -27,7 +27,7 @@ ansible -m ping all
 
 3. Install MMonit. 
 ```
-export MMONIT_LICENSE="~/.ansible/roles/rajasoun.ansible_role_mmonit/files/license.yml"
+export MMONIT_LICENSE="/home/ubuntu/.ansible/roles/rajasoun.ansible_role_mmonit/files/license.yml"
 ansible-vault decrypt $MMONIT_LICENSE
 
 ansible-playbook monitoring/mmonit.yml
@@ -41,7 +41,8 @@ ansible-playbook monitoring/monit.yml
 5. Install Dcoker and Docker-Compose in observability, dashboard and reverse-proxy
 
 ```
-ansible-playbook monitoring/docker.yml
+ansible-playbook monitoring/observability.yml
+ansible-playbook monitoring/reverse-proxy.yml
 ```
 
 

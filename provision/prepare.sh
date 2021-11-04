@@ -3,9 +3,9 @@
 set -eo pipefail
 IFS=$'\n\t'
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(git rev-parse --show-toplevel)"
 # shellcheck source=src/lib/os.bash
-source "$SCRIPT_DIR/lib/os.bash"
+source "$SCRIPT_DIR/provision/lib/os.bash"
 
 DOMAIN=${DOMAIN:-"secops-dev"}
 
@@ -52,7 +52,7 @@ function create_config_from_template() {
     file_replace_text "_SSH_KEY_.*$" "$(cat "$SSH_KEY_PATH"/"${SSH_KEY}".pub)" "$USER_CONFIG_FILE"
     file_replace_text "ssh-rsa.*$" "$(cat "$SSH_KEY_PATH"/"${SSH_KEY}".pub)" "$CLOUD_INIT_CONFIG_FILE"
 
-    echo "$USER_CONFIG_FILE & $CLOUD_INIT_CONFIG_FILE Generated for $VM_NAME"
+    echo "$USER_CONFIG_FILE & $CLOUD_INIT_CONFIG_FILE Generated"
 }
 
 check_pre_conditions

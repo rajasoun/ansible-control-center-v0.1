@@ -3,9 +3,9 @@
 set -eo pipefail
 IFS=$'\n\t'
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(git rev-parse --show-toplevel)"
 # shellcheck source=src/lib/os.bash
-source "$SCRIPT_DIR/lib/os.bash"
+source "$SCRIPT_DIR/provision/lib/os.bash"
 
 
 start=$(date +%s)

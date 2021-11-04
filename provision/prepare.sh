@@ -3,6 +3,10 @@
 set -eo pipefail
 IFS=$'\n\t'
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=src/lib/os.bash
+source "$SCRIPT_DIR/lib/os.bash"
+
 DOMAIN=${DOMAIN:-"secops-dev"}
 
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -49,33 +53,6 @@ function create_config_from_template() {
     file_replace_text "ssh-rsa.*$" "$(cat "$SSH_KEY_PATH"/"${SSH_KEY}".pub)" "$CLOUD_INIT_CONFIG_FILE"
 
     echo "$USER_CONFIG_FILE & $CLOUD_INIT_CONFIG_FILE Generated for $VM_NAME"
-}
-
-# Returns true (0) if this is an OS X server or false (1) otherwise.
-function os_is_darwin {
-  [[ $(uname -s) == "Darwin" ]]
-}
-
-# Replace a line of text that matches the given regular expression in a file with the given replacement.
-# Only works for single-line replacements.
-function file_replace_text {
-  local -r original_text_regex="$1"
-  local -r replacement_text="$2"
-  local -r file="$3"
-
-  local args=()
-  args+=("-i")
-
-  if os_is_darwin; then
-    # OS X requires an extra argument for the -i flag (which we set to empty string) which Linux does no:
-    # https://stackoverflow.com/a/2321958/483528
-    args+=("")
-  fi
-
-  args+=("s|$original_text_regex|$replacement_text|")
-  args+=("$file")
-
-  sed "${args[@]}" > /dev/null
 }
 
 check_pre_conditions

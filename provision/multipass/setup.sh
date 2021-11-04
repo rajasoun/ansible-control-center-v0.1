@@ -3,6 +3,11 @@
 set -eo pipefail
 IFS=$'\n\t'
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=src/lib/os.bash
+source "$SCRIPT_DIR/lib/os.bash"
+
+
 CPU=${CPU:-"2"}
 MEMORY=${MEMORY:-"2G"}
 DISK=${DISK:-"4G"}

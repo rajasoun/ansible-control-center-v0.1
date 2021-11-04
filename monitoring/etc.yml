@@ -1,0 +1,14 @@
+---
+
+- hosts: control-center
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: Add Ansible inventory mappings to /etc/hosts
+      blockinfile:
+        path: /etc/hosts
+        block: |
+          {% for host in groups['all'] %}
+          {{ hostvars[host].ansible_ssh_host }} {{ host }}
+          {% endfor %}

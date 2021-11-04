@@ -1,4 +1,4 @@
-- hosts: observability, reverse-proxy
+- hosts: reverse-proxy
   become: true
   become_method: sudo
 
@@ -15,8 +15,8 @@
   tasks:
     - name: Git checkout
       ansible.builtin.git:
-        repo: "https://github.com/rajasoun/observability-dashboard"
-        dest: observability-dashboard
+        repo: "https://github.com/rajasoun/traefik-reverse-proxy"
+        dest: traefik-reverse-proxy
         update: yes
   
   post_tasks:
@@ -24,7 +24,7 @@
       tags: ssl_certs
       ansible.builtin.copy:
         src: "certs/{{ item }}"
-        dest: "/home/{{ ansible_user }}/observability-dashboard/config/certs/{{ item }}"
+        dest: "/home/{{ ansible_user }}/traefik-reverse-proxy/config/certs/{{ item }}"
         owner: root
         group: root
         mode: "u=rw,g=r,o=" #'0440'

@@ -56,6 +56,7 @@ echo "Provisioning $VM_NAME "
 echo "++++++++++++++++++++++"
 provision_vm
 create_ansible_inventory_from_template
+create_ssh_config_from_template
 multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')

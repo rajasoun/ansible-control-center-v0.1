@@ -7,6 +7,10 @@ SCRIPT_DIR="$(git rev-parse --show-toplevel)"
 # shellcheck source=src/lib/os.bash
 source "$SCRIPT_DIR/provision/lib/os.bash"
 
+DOMAIN=${DOMAIN:-"secops-dev"}
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SSH_KEY_PATH="keys"
+SSH_KEY="id_rsa"
 
 CPU=${CPU:-"2"}
 MEMORY=${MEMORY:-"2G"}
@@ -18,7 +22,9 @@ function provision_vm(){
     local CLOUD_INIT_FILE="config/cloud-init.yaml"
     if [ ! -f "$CLOUD_INIT_FILE" ]; then
         echo "Initiating Preparation..."
-        ( exec "provision/prepare.sh" )
+        check_pre_conditions
+        generate_ssh_key 
+        create_config_from_template 
     fi
     echo "Provisioning $VM_NAME..."
     multipass launch --name $VM_NAME \
@@ -42,7 +48,7 @@ function create_ansible_inventory_from_template(){
     echo "${ANSIBLE_INVENTORY_FILE} generated for ${VM_NAME}"
 }
 
-function create_ssh_monit_config_from_template() {
+function create_ssh_config_from_template() {
     local SSH_TEMPLATE_FILE="config/templates/ssh/config"
     local SSH_CONFIG_FILE="monitoring/config/ssh-config"
 

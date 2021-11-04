@@ -7,4 +7,6 @@ keys/.vault_password
 inventory
 *.key
 *.crt
+monitoring/config/ssh-config
+
 

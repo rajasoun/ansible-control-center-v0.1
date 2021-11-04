@@ -1,4 +1,4 @@
-Host _GATEWAY_IP_.*
+Host _GATEWAY_IP_
     User ubuntu
     Port 22
     IdentityFile /home/ubuntu/ansible-control-center/keys/id_rsa

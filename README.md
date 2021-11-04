@@ -29,7 +29,7 @@ ansible-control-center/provision/install.sh
 export MMONIT_LICENSE="~/.ansible/roles/rajasoun.ansible_role_mmonit/files/license.yml"
 ansible-vault decrypt $MMONIT_LICENSE
 
-ansible-playbook ansible-control-center/monitoring/mmonit.yml
+ansible-playbook monitoring/mmonit.yml
 ```
 
 4. Install Monit, Node Exporter in all Nodes 

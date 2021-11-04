@@ -12,3 +12,12 @@ VM_HOME=${VM_HOME:-"/home/ubuntu"}
 
 install_ansible
 install_ansible_roles
+
+sudo snap install semaphore
+sudo snap stop semaphore
+sudo semaphore user add --admin \
+                --login admin \
+                --name=admin \
+                --email=devsecops@gmail.com \
+                --password=admin
+sudo snap start semaphore

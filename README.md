@@ -20,8 +20,9 @@ provision/multipass/full.sh
 
 ```
 multipass shell control-center
+cd ansible-control-center
+provision/multipass/install_to_cc.sh
 ansible -m ping all
-ansible-control-center/provision/install.sh
 ```
 
 3. Install MMonit. 

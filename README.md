@@ -23,6 +23,7 @@ multipass shell control-center
 cd ansible-control-center
 provision/multipass/install_to_cc.sh
 ansible -m ping all
+ansible-playbook monitoring/etc.yml
 ```
 
 3. Install MMonit. 

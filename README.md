@@ -14,13 +14,13 @@ Ansible Control Center
 git clone https://github.com/rajasoun/ansible-control-center
 cd ansible-control-center
 provision/multipass/full.sh
-multipass shell control-center
-ansible -m ping all
 ```
 
 2. Install Ansible and Ansible Role in control-center 
 
 ```
+multipass shell control-center
+ansible -m ping all
 ansible-control-center/provision/install.sh
 ```
 

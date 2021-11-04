@@ -42,9 +42,10 @@ function create_ansible_inventory_from_template(){
     echo "${ANSIBLE_INVENTORY_FILE} generated for ${VM_NAME}"
 }
 
-function create_ssh_config_from_template() {
+function create_ssh_monit_config_from_template() {
     local SSH_TEMPLATE_FILE="config/templates/ssh/config"
     local SSH_CONFIG_FILE="monitoring/config/ssh-config"
+
     if [ -f "$SSH_CONFIG_FILE" ]; then
         echo "Reusing Existing SSH Config Files"
         return 0
@@ -54,6 +55,7 @@ function create_ssh_config_from_template() {
     IP=$(multipass info "$VM_NAME" | grep IPv4 | awk '{print $2}')
     OCTET=$(echo $IP | awk -F '.' '{ print $1}')
     file_replace_text "_GATEWAY_IP_.*$" "$OCTET" "$SSH_CONFIG_FILE.*"
+
     echo "$SSH_CONFIG_FILE Generated for $VM_NAME"
 }
 

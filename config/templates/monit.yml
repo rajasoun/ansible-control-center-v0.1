@@ -46,7 +46,7 @@
 
     # SSL Connection to MMonit
     mmonit_server_scheme: https 
-    mmonit_server_ip: 192.168.64.52
+    mmonit_server_ip: _MMONIT_SERVER_IP_
     mmonit_server_port: 443
 
     # # Non SSL Connection to MMonit

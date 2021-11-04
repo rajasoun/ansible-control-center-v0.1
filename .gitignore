@@ -8,5 +8,6 @@ inventory
 *.key
 *.crt
 monitoring/config/ssh-config
+monitoring/monit.yml
 
 

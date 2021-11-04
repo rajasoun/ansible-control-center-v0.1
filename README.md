@@ -14,22 +14,28 @@ Ansible Control Center
 git clone https://github.com/rajasoun/ansible-control-center
 cd ansible-control-center
 provision/multipass/full.sh
-provision/install.sh
 ansible -m ping all
 ```
 
-2. Install MMonit. 
+2. Install Ansible and Ansible Role in control-center 
+
+```
+multipass shell control-center
+provision/install.sh
+```
+
+3. Install MMonit. 
 ```
 ansible-vault decrypt ~/.ansible/roles/rajasoun.ansible_role_mmonit/files/license.yml
 ansible-playbook monitoring/mmonit.yml
 ```
 
-3. Install Monit, Node Exporter in all Nodes 
+4. Install Monit, Node Exporter in all Nodes 
 ```
 ansible-playbook monitoring/monit.yml
 ```
 
-4. Install Dcoker and Docker-Compose in observability, dashboard and reverse-proxy
+5. Install Dcoker and Docker-Compose in observability, dashboard and reverse-proxy
 
 ```
 ansible-playbook monitoring/docker.yml

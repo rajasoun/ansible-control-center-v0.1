@@ -54,25 +54,6 @@
     # mmonit_server_ip: 192.168.64.52
     # mmonit_server_port: 80
 
-  pre_tasks:
-    - name: Copy  SSH Config to Host
-      tags: ssl_certs
-      ansible.builtin.copy:
-        src: "config/ssh-config"
-        dest: "/home/ubuntu/.ssh/config"
-        owner: root
-        group: root
-        mode: "u=rw,g=r,o=r"
-
-  post_tasks:
-    - name: Add Ansible inventory mappings to /etc/hosts
-      blockinfile:
-        path: /etc/hosts
-        block: |
-          {% for host in groups['all'] %}
-          {{ hostvars[host].ansible_ssh_host }} {{ host }}
-          {% endfor %}
-
   roles:
     - role: rajasoun.ansible_role_monit 
     - role: cloudalchemy.node_exporter

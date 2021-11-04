@@ -12,3 +12,12 @@
           {% for host in groups['all'] %}
           {{ hostvars[host].ansible_ssh_host }} {{ host }}
           {% endfor %}
+
+    - name: Copy  SSH Config to Host
+      tags: ssl_certs
+      ansible.builtin.copy:
+        src: "config/ssh-config"
+        dest: "/home/ubuntu/.ssh/config"
+        owner: root
+        group: root
+        mode: "u=rw,g=r,o=r"

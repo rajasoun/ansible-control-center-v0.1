@@ -6,8 +6,9 @@ case "$MLIST" in
     *No* ) 
         echo "Multipass - All Clean";;
     * ) echo "Cleaning"
-        multipass ls | grep -v Name | awk '{print $1}' | xargs multipass stop 
-        multipass ls | grep -v Name | awk '{print $1}' | xargs multipass delete 
+        
+        multipass ls  | grep Running | awk '{print $1}' | xargs multipass stop
+        multipass ls  | grep Stopped | awk '{print $1}' | xargs multipass delete
     ;;
 esac
 

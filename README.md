@@ -14,7 +14,6 @@ Ansible Control Center
 git clone https://github.com/rajasoun/ansible-control-center
 cd ansible-control-center
 provision/multipass/full.sh
-ansible -m ping all
 ```
 
 2. Install Ansible and Ansible Role in control-center 
@@ -22,6 +21,7 @@ ansible -m ping all
 ```
 alias mcmd='multipass exec'
 mcmd control-center -- ansible-control-center/provision/install.sh
+mcmd control-center -- ansible -m ping all
 ```
 
 3. Install MMonit. 

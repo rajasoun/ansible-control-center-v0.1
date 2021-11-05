@@ -10,4 +10,5 @@ inventory
 playbooks/config/ssh-config
 playbooks/monit.yml
 playbooks/createusers.yml
+.ansible
 

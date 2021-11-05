@@ -1,5 +1,5 @@
-APP := $(shell basename $(CURDIR))
-VERSION := $(shell git describe --tags --always --dirty)
+APP := "openstack-client"
+VERSION := "latest"
 IMAGE_NAME=$(USER)/$(APP):$(VERSION)
 CONTEXT="."
 
@@ -17,7 +17,7 @@ help: ## This help.
 # DOCKER TASKS
 # Build the container
 docker_build: ## Build the container
-	docker build -t $(IMAGE_NAME) -t $(USER)/$(APP):latest $(CONTEXT) 
+	docker build -t $(IMAGE_NAME) $(CONTEXT) 
 
 docker_shell: ## Shell to container 
 	docker run --rm -it --name=$(APP_NAME) -v "${PWD}:/workspace" $(IMAGE_NAME)

@@ -23,8 +23,6 @@ locally, or in Openstack
 2. Install Ansible and Ansible Role in control-center 
 
 ```
-git clone https://github.com/rajasoun/ansible-control-center
-cd ansible-control-center
 provision/common/install_to_cc.sh
 ```
 

@@ -2,6 +2,12 @@
 
 - hosts: control-center
 
+  pre_tasks:
+    - name: Check ansible-control-center Dir
+      stat:
+        path: "/home/ubuntu/ansible-control-center"
+      register: register_name
+
   tasks:
     - name: Add Ansible inventory mappings to /etc/hosts
       blockinfile:
@@ -26,6 +32,13 @@
         src: "../keys/id_rsa"
         dest: "/home/ubuntu/.ssh/id_rsa"
         mode: "u=rw,g=r,o=r"
+
+    - name: Git checkout
+      ansible.builtin.git:
+        repo: "https://github.com/rajasoun/ansible-control-center"
+        dest: ansible-control-center
+        update: yes
+      when: not register_name.stat.exists
 
 
 

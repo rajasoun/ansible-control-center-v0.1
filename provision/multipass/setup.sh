@@ -70,7 +70,11 @@ echo "++++++++++++++++++++++"
 provision_vm
 create_ansible_inventory_from_template
 create_ssh_config_from_template
-#multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center
+
+if [ "$VM_NAME" eq "control-center" ]; then 
+    echo "Mounting File System in control-center"
+    multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center
+fi 
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
 echo "$VM_NAME with IP : $MULTIPASS_VM_IP | READY"

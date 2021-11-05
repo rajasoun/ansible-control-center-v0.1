@@ -32,17 +32,17 @@ provision/common/install_to_cc.sh
 export MMONIT_LICENSE="/home/ubuntu/.ansible/roles/rajasoun.ansible_role_mmonit/files/license.yml"
 ansible-vault decrypt $MMONIT_LICENSE
 
-ansible-playbook monitoring/mmonit.yml
+ansible-playbook playbooks/mmonit.yml
 ```
 
 4. Install Monit, Node Exporter in all Nodes 
 ```
-ansible-playbook monitoring/monit.yml
+ansible-playbook playbooks/monit.yml
 ```
 
 5. Install Dcoker and Docker-Compose in observability, dashboard and reverse-proxy
 
 ```
-ansible-playbook monitoring/observability.yml
-ansible-playbook monitoring/reverse-proxy.yml
+ansible-playbook playbooks/observability.yml
+ansible-playbook playbooks/reverse-proxy.yml
 ```

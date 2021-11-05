@@ -50,7 +50,7 @@ function create_ansible_inventory_from_template(){
 
 function create_ssh_config_from_template() {
     local SSH_TEMPLATE_FILE="config/templates/ssh/config"
-    local SSH_CONFIG_FILE="monitoring/config/ssh-config"
+    local SSH_CONFIG_FILE="playbooks/config/ssh-config"
 
     if [ -f "$SSH_CONFIG_FILE" ]; then
         echo "Reusing Existing SSH Config Files"

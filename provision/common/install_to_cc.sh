@@ -14,7 +14,7 @@ VM_HOME=${VM_HOME:-"/home/ubuntu"}
 install_ansible
 install_ansible_roles
 
-ansible-playbook monitoring/control_center.yml
+ansible-playbook playbooks/control_center.yml
 ansible -m ping all
 
 

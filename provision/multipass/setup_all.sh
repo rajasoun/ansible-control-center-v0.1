@@ -9,7 +9,7 @@ source "$SCRIPT_DIR/provision/lib/os.bash"
 
 function create_monit_playbook_from_template(){
     local MONIT_TEMPLATE_FILE="config/templates/monit.yml"
-    local MONIT_CONFIG_FILE="monitoring/monit.yml"
+    local MONIT_CONFIG_FILE="playbooks/monit.yml"
 
     cp "$MONIT_TEMPLATE_FILE" "$MONIT_CONFIG_FILE"
     file_replace_text "sda1.*$" "vda1\""  "$MONIT_CONFIG_FILE"

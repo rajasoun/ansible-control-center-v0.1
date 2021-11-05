@@ -19,5 +19,6 @@ rm -fr config/cloud-init.yaml \
        inventory \
        keys/id_rsa \
        keys/id_rsa.pub \
-       monitoring/monit.yml
+       playbooks/monit.yml \
+       playbooks/createusers.yml
 

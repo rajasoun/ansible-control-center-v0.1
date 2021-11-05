@@ -8,7 +8,7 @@ function install_ansible(){
 }
 
 function install_ansible_roles(){
-    ansible-galaxy install -r $VM_HOME/ansible-control-center/monitoring/requirements.yml
+    ansible-galaxy install -r $VM_HOME/ansible-control-center/dependencies/monitoring/requirements.yml
     IP=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 
     case "$IP" in
@@ -16,10 +16,10 @@ function install_ansible_roles(){
             echo "Multipass VM.Skipping User Mgmt";;
             
         * ) echo "User Mgmt"
-            ansible-galaxy install -r $VM_HOME/ansible-control-center/user-mgmt/requirements.yml
+            ansible-galaxy install -r $VM_HOME/ansible-control-center/dependencies/user-mgmt/requirements.yml
 
             local USER_TEMPLATE_FILE="config/templates/createusers.yml"
-            local USER_CREATE_FILE="monitoring/createusers.yml"
+            local USER_CREATE_FILE="playbooks/createusers.yml"
             if [ -f "$USER_CREATE_FILE" ]; then
                 echo "Reusing Existing Config Files"
                 return 0

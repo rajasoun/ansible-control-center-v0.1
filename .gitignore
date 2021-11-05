@@ -7,7 +7,7 @@ keys/.vault_password
 inventory
 *.key
 *.crt
-monitoring/config/ssh-config
-monitoring/monit.yml
-monitoring/createusers.yml
+playbooks/config/ssh-config
+playbooks/monit.yml
+playbooks/createusers.yml
 

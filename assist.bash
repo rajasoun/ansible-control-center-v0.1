@@ -8,7 +8,7 @@ choice=$( tr '[:upper:]' '[:lower:]' <<<"$opt" )
 case $choice in
   multipass)
     echo "Local Setup using multipass..."
-    provision/multipass/full.sh
+    provision/multipass/setup_all.sh
     multipass shell control-center
     ;;
   openstack)

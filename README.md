@@ -25,8 +25,6 @@ Ansible Control Center in provisioning infrastructure vms locally, AWS or in Ope
 git clone https://github.com/rajasoun/ansible-control-center
 cd ansible-control-center
 provision/common/install_to_cc.sh
-ansible-playbook monitoring/control_center.yml
-ansible -m ping all
 ```
 
 3. Install MMonit. 
@@ -48,6 +46,3 @@ ansible-playbook monitoring/monit.yml
 ansible-playbook monitoring/observability.yml
 ansible-playbook monitoring/reverse-proxy.yml
 ```
-
-
-ansible-playbook -i inventory createusers.yml

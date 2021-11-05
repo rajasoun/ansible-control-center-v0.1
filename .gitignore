@@ -9,5 +9,5 @@ inventory
 *.crt
 monitoring/config/ssh-config
 monitoring/monit.yml
-
+monitoring/createusers.yml
 

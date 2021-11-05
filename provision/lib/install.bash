@@ -14,8 +14,23 @@ function install_ansible_roles(){
     case "$IP" in
         *192* ) 
             echo "Multipass VM.Skipping User Mgmt";;
+            
         * ) echo "User Mgmt"
             ansible-galaxy install -r $VM_HOME/ansible-control-center/user-mgmt/requirements.yml
+
+            local USER_TEMPLATE_FILE="config/templates/createusers.yml"
+            local USER_CREATE_FILE="monitoring/createusers.yml"
+            if [ -f "$USER_CREATE_FILE" ]; then
+                echo "Reusing Existing Config Files"
+                return 0
+            fi
+            echo "Generating Config Files..."
+            cp "$USER_TEMPLATE_FILE" "$USER_CREATE_FILE"
+
+            file_replace_text "_SSH_KEY_.*$" "$(cat "$SSH_KEY_PATH"/"${SSH_KEY}".pub)" "$USER_CONFIG_FILE"
+            echo "$USER_CREATE_FILE  Generated"
+
+            ansible-playbook -i inventory $USER_CREATE_FILE
         ;;
     esac
 }

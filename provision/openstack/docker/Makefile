@@ -17,13 +17,13 @@ help: ## This help.
 # DOCKER TASKS
 # Build the container
 docker_build: ## Build the container
-	docker build -t $(IMAGE_NAME) $(CONTEXT) 
+	docker build -t $(IMAGE_NAME) -t $(USER)/$(APP):latest $(CONTEXT) 
 
 docker_shell: ## Shell to container 
-	docker run --rm -it --name=$(APP_NAME) -v "${PWD}:/workspace" --entrypoint=/bin/sh $(IMAGE_NAME)
+	docker run --rm -it --name=$(APP_NAME) -v "${PWD}:/workspace" $(IMAGE_NAME)
 
 docker_run: ## Run container 
-	docker run --rm --name="$(APP_NAME)" -v "${PWD}:/workspace" $(IMAGE_NAME) sh -c "/workspace/run_suite.sh"
+	docker run --rm --name="$(APP_NAME)" -v "${PWD}:/workspace" $(IMAGE_NAME) sh -c "/workspace/openstack/run.sh"
 
 docker_login: ## Login To Docker
 	cat token.txt | docker login --username "${USER}" --password-stdin

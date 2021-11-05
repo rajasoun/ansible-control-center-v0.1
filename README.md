@@ -22,11 +22,11 @@ Ansible Control Center in provisioning infrastructure vms locally, AWS or in Ope
 2. Install Ansible and Ansible Role in control-center 
 
 ```
+git clone https://github.com/rajasoun/ansible-control-center
 cd ansible-control-center
-provision/multipass/install_to_cc.sh
+provision/common/install_to_cc.sh
 ansible-playbook monitoring/control_center.yml
 ansible -m ping all
-
 ```
 
 3. Install MMonit. 

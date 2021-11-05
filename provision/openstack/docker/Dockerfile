@@ -34,5 +34,5 @@ RUN set -ex \
 
 COPY dotfiles/.p10k.zsh $HOME/.p10k.zsh
 
-WORKDIR /workspace
+WORKDIR /workspace/provision/openstack
 CMD /bin/zsh "$@"

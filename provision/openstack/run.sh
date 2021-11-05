@@ -1,3 +1,5 @@
 #!/usr/bin/env bash 
 
-echo "Hello From $USER within Container "
+docker run --rm -it --name="openstack-client" \
+    -v "${PWD}:/workspace" \
+    rajasoun/openstack-client:latest 

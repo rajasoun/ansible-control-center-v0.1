@@ -22,9 +22,6 @@ docker_build: ## Build the container
 docker_shell: ## Shell to container 
 	docker run --rm -it --name=$(APP_NAME) -v "${PWD}:/workspace" $(IMAGE_NAME)
 
-docker_run: ## Run container 
-	docker run --rm --name="$(APP_NAME)" -v "${PWD}:/workspace" $(IMAGE_NAME) sh -c "/workspace/provision/openstack/run.sh"
-
 docker_login: ## Login To Docker
 	cat token.txt | docker login --username "${USER}" --password-stdin
 

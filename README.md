@@ -1,25 +1,27 @@
 # asnible-control-center
-Ansible Control Center
 
-## Getting Started Local Testing using Multipass
+Ansible Control Center in provisioning infrastructure vms locally, AWS or in Openstack  
 
-1. Create Five VMs 
+## Pre Requisites
+
+* [multipass](https://multipass.run/) for local setup
+* [docker](https://www.docker.com/) for cloud setup 
+
+## Getting Started 
+
+1. Create Infrastructure VMs locally or in cloud 
     * control-center
     * mmonit
     * observability
-    * dashboard
     * reverse-proxy
 
 ```
-git clone https://github.com/rajasoun/ansible-control-center
-cd ansible-control-center
-provision/multipass/full.sh
+./assist.bash 
 ```
 
 2. Install Ansible and Ansible Role in control-center 
 
 ```
-multipass shell control-center
 cd ansible-control-center
 provision/multipass/install_to_cc.sh
 ansible-playbook monitoring/control_center.yml

@@ -71,7 +71,7 @@ provision_vm
 create_ansible_inventory_from_template
 create_ssh_config_from_template
 
-if [ "$VM_NAME" eq "control-center" ]; then 
+if [ "$VM_NAME" = "control-center" ]; then 
     echo "Mounting File System in control-center"
     multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center
 fi 

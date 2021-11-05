@@ -1,7 +1,8 @@
 APP := "openstack-client"
+CONTEXT="provision/openstack/docker"
 VERSION := "latest"
+
 IMAGE_NAME=$(USER)/$(APP):$(VERSION)
-CONTEXT="."
 
 # HELP
 # This will output the help for each task

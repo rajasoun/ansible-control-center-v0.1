@@ -24,7 +24,7 @@ docker_shell: ## Shell to container
 	docker run --rm -it --name=$(APP_NAME) -v "${PWD}:/workspace" $(IMAGE_NAME)
 
 docker_login: ## Login To Docker
-	cat token.txt | docker login --username "${USER}" --password-stdin
+	cat $(CONTEXT)/token.txt | docker login --username "${USER}" --password-stdin
 
 docker_push: docker_build docker_login ## Push to Docker Hub
 	docker push $(IMAGE_NAME)

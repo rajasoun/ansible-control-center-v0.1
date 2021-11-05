@@ -1,6 +1,7 @@
 # asnible-control-center
 
-Ansible Control Center in provisioning infrastructure vms locally, AWS or in Openstack  
+Ansible Control Center in provisioning infrastructure vms 
+locally, or in Openstack  
 
 ## Pre Requisites
 

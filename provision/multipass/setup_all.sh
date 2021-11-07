@@ -24,10 +24,12 @@ function create_monit_playbook_from_template(){
 }
 
 function provision_vms(){
-    export VM_NAME=control-center && provision/multipass/setup.sh
-    export VM_NAME=mmonit && provision/multipass/setup.sh
-    export VM_NAME=observability && provision/multipass/setup.sh
-    export VM_NAME=reverse-proxy && provision/multipass/setup.sh
+    declare -a vm_list=$(cat config/observability.vm.list)
+    for vm in "${vm_list[@]}"
+    do
+        echo "$i"
+        export VM_NAME=$vm && provision/multipass/setup.sh
+    done
 }
 
 start=$(date +%s)

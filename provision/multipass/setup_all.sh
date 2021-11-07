@@ -31,7 +31,7 @@ function provision_vms(){
         then
             export VM_NAME=${vm}  && provision/multipass/setup.sh
         fi
-    done < config/swarm.vm.list
+    done < swarm.vm.list
     #export VM_NAME=control-center && provision/multipass/setup.sh
 }
 

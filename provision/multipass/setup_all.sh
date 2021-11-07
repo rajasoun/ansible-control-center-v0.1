@@ -29,7 +29,7 @@ function provision_vms(){
     do
         if [[ ! -z $vm ]]
         then
-            echo "export VM_NAME=${vm}  && provision/multipass/setup.sh"
+            export VM_NAME=${vm}  && provision/multipass/setup.sh
         fi
     done < config/swarm.vm.list
     #export VM_NAME=control-center && provision/multipass/setup.sh

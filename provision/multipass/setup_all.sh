@@ -24,12 +24,15 @@ function create_monit_playbook_from_template(){
 }
 
 function provision_vms(){
-    declare -a vm_list=$(cat config/observability.vm.list)
-    for vm in "${vm_list[@]}"
+    # declare -a vm_list=$(cat config/observability.vm.list)
+    while read -r vm
     do
-        echo "$i"
-        export VM_NAME=$vm && provision/multipass/setup.sh
-    done
+        if [[ ! -z $vm ]]
+        then
+            echo "export VM_NAME=${vm}  && provision/multipass/setup.sh"
+        fi
+    done < config/swarm.vm.list
+    #export VM_NAME=control-center && provision/multipass/setup.sh
 }
 
 start=$(date +%s)

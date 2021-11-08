@@ -2,3 +2,8 @@ Host _GATEWAY_IP_
     User ubuntu
     Port 22
     IdentityFile /home/ubuntu/ansible-control-center/keys/id_rsa
+
+Host swarm-* control-* mmonit observability edge-router
+    User ubuntu
+    Port 22
+    IdentityFile /home/ubuntu/ansible-control-center/keys/id_rsa

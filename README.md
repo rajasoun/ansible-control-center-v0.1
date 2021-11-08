@@ -58,3 +58,7 @@ ansible-playbook playbooks/monit.yml
 ansible-playbook playbooks/observability.yml
 ansible-playbook playbooks/reverse-proxy.yml
 ```
+
+> As and when new nodes are being added, do the following
+1. Add the node to the `inventory` file 
+2. Execute `ansible-playbook playbooks/control_center.yml` to update /etc/hosts and SSH Config to control center

@@ -1,4 +1,0 @@
-Host 192.*
-    User ubuntu
-    Port 22
-    IdentityFile /home/ubuntu/ansible-control-center/keys/id_rsa

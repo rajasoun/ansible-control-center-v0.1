@@ -34,7 +34,7 @@ cd ansible-control-center
 provision/common/install_to_cc.sh
 ```
 
-3. Install MMonit. 
+3. Install MMonit. Add `.vault_password` to `keys` directory with the vault password
 ```
 provision/common/install_mmonit.sh
 ```

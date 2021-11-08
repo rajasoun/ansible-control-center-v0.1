@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: mmonit
   
   vars:
     git_repos:
@@ -13,5 +13,4 @@
         repo: "{{ item.url}}"
         dest: "{{ item.name }}"
         update: yes
-      when: not register_name.stat.exists
       with_items: "{{ git_repos }}"

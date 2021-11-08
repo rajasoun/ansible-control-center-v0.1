@@ -17,7 +17,15 @@ locally, or in Openstack
     * reverse-proxy
 
 ```
-./assist.bash 
+./assist.bash {multipass | openstack}
+```
+
+Multipass Specific (Local)
+
+```
+./assist.bash multipass 
+multipass shell control-center
+cd ansible-control-center
 ```
 
 2. Install Ansible and Ansible Role in control-center 
@@ -28,10 +36,7 @@ provision/common/install_to_cc.sh
 
 3. Install MMonit. 
 ```
-export MMONIT_LICENSE="/home/ubuntu/.ansible/roles/rajasoun.ansible_role_mmonit/files/license.yml"
-ansible-vault decrypt $MMONIT_LICENSE
-
-ansible-playbook playbooks/mmonit.yml
+provision/common/install_mmonit.sh
 ```
 
 4. Install Monit, Node Exporter in all Nodes 

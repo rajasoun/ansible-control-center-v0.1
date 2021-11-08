@@ -28,6 +28,14 @@ multipass shell control-center
 cd ansible-control-center
 ```
 
+Open Stack (On Prem Cloud)
+
+```
+provision/openstack/shell/run.sh
+source config/{stage|production}/<openrc.sh>
+cd /workspace
+```
+
 2. Install Ansible and Ansible Role in control-center 
 
 ```

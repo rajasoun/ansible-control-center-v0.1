@@ -15,6 +15,7 @@ install_ansible
 install_ansible_roles
 
 ansible-playbook playbooks/control_center.yml
+ansible-playbook playbooks/pip-packages.yml
 
 if [ ! -f "inventory" ]; then
     echo "Inventory File Not Availabe. Exiting..."

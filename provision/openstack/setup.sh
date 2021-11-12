@@ -43,7 +43,6 @@ function create_ansible_inventory_from_template(){
     fi 
 
     IP=$(openstack server list | grep "$VM_NAME" | awk '{print $8}' | tr "=" "\n" | grep -v net)
-    echo $IP
     echo "$VM_NAME  ansible_ssh_host=$IP  ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa" >> $ANSIBLE_INVENTORY_FILE
     echo "${ANSIBLE_INVENTORY_FILE} generated for ${VM_NAME}"
 }
@@ -59,7 +58,6 @@ function create_ssh_config_from_template() {
     echo "Generating Config Files..."
     cp "$SSH_TEMPLATE_FILE" "$SSH_CONFIG_FILE"
     IP=$(openstack server list | grep "$VM_NAME" | awk '{print $8}' | tr "=" "\n" | grep -v net)
-    echo $IP
     OCTET=$(echo $IP | awk -F '.' '{ print $1}')
     file_replace_text "_GATEWAY_IP_.*$" "$OCTET" "$SSH_CONFIG_FILE.*"
 
@@ -68,7 +66,7 @@ function create_ssh_config_from_template() {
 
 echo "Provisioning $VM_NAME "
 echo "++++++++++++++++++++++"
-provision_vm
+#provision_vm
 create_ansible_inventory_from_template
 create_ssh_config_from_template
 

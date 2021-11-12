@@ -21,6 +21,7 @@ function install_ansible_roles(){
             local USER_TEMPLATE_FILE="config/templates/createusers.yml"
             local USER_CREATE_FILE="playbooks/createusers.yml"
             if [ -f "$USER_CREATE_FILE" ]; then
+                echo "$USER_CREATE_FILE Exists"
                 echo "Reusing Existing Config Files"
                 return 0
             fi

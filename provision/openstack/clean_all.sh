@@ -20,10 +20,12 @@ do
 done < "$SCRIPT_DIR/provision/openstack/openstack_vm.list"
 
 rm -fr config/cloud-init.yaml \
+       config/createusers.yml \
        inventory \
        keys/id_rsa \
        keys/id_rsa.pub \
        playbooks/monit.yml \
        playbooks/config/ssh-config \
        playbooks/createusers.yml
+echo "All Clean"
 

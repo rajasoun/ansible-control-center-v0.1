@@ -70,6 +70,7 @@ function create_config_from_template() {
     local CLOUD_INIT_TEMPLATE_FILE="config/templates/cloud-init.yaml"
     local CLOUD_INIT_CONFIG_FILE="config/cloud-init.yaml"
     if [ -f "$USER_CONFIG_FILE" ]; then
+        echo "$USER_CONFIG_FILE exists"
         echo "Reusing Existing Config Files"
         return 0
     fi

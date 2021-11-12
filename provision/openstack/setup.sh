@@ -66,7 +66,7 @@ function create_ssh_config_from_template() {
 
 echo "Provisioning $VM_NAME "
 echo "++++++++++++++++++++++"
-#provision_vm
+provision_vm
 create_ansible_inventory_from_template
 create_ssh_config_from_template
 

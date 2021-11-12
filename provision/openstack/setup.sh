@@ -41,9 +41,12 @@ function create_ansible_inventory_from_template(){
     if [ ! -f $ANSIBLE_INVENTORY_FILE ];then 
         cp  $ANSIBLE_INVENTORY_FILE_TEMPLATE $ANSIBLE_INVENTORY_FILE
     fi 
-
-    IP=$(openstack server list | grep "$VM_NAME" | awk '{print $8}' | tr "=" "\n" | grep -v net)
-    echo "$VM_NAME  ansible_ssh_host=$IP  ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa" >> $ANSIBLE_INVENTORY_FILE
+    echo "Waiting for 30 seconds"
+    sleep 30  
+    VM_IP=$(openstack server list | grep "$VM_NAME" | awk '{print $8}' | tr "=" "\n" | grep -v net)
+    echo "VM IP: ${VM_IP}"
+    echo "$VM_NAME  ansible_ssh_host=${VM_IP}  ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa" 
+    echo "$VM_NAME  ansible_ssh_host=${VM_IP}  ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa" >> $ANSIBLE_INVENTORY_FILE
     echo "${ANSIBLE_INVENTORY_FILE} generated for ${VM_NAME}"
 }
 

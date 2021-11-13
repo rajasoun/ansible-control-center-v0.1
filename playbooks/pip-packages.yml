@@ -7,7 +7,7 @@
     pip_executable: pip3
     pip_install_packages:
       - name: awscli
-      - name: python3-openstackclient
+      - name: python-openstackclient
 
   pre_tasks:
     - name: Install Pip3

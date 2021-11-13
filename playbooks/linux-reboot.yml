@@ -1,7 +1,7 @@
 ---
 
 - name: Linux Reboot 
-  hosts: all
+  hosts: control-center
   gather_facts: no
   become: true
   become_method: sudo

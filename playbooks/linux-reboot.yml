@@ -9,4 +9,8 @@
   tasks:
     - name: Reboot the machine (Wait for 5 min)
       reboot:
+        reboot_command: launchctl reboot userspace
+        boot_time_command: uptime | cut -d ' ' -f 5
         reboot_timeout: 300
+
+

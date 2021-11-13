@@ -13,7 +13,7 @@ RUN set -x \
     && apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends zsh \
 		zsh-autosuggestions zsh-syntax-highlighting  \
-        python3-pip git-all sudo \
+        python3-pip git-all sudo curl wget \
     && apt install software-properties-common -y \
     && add-apt-repository --yes --update ppa:ansible/ansible \
     && apt install ansible -y 

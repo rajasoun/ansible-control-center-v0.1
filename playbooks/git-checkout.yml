@@ -1,6 +1,6 @@
 ---
 
-- hosts: mmonit
+- hosts: control-center
   
   vars:
     git_repos:

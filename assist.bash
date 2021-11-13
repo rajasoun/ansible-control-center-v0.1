@@ -13,7 +13,7 @@ case $choice in
     ;;
   openstack)
     echo "Cloud Setup using openstack..."
-    provision/openstack/run.sh
+    provision/openstack/shell/run.sh
     ;;
   *)
     cat <<-EOF

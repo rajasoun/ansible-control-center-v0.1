@@ -1,4 +1,5 @@
-FROM python:3.10.0-buster
+#FROM python:3.10.0-buster
+FROM ubuntu:20.04
 
 ARG USER=ci-shell
 ENV TZ=Asia/Kolkata
@@ -11,7 +12,11 @@ ENV ZSH_THEME="powerlevel10k/powerlevel10k"
 RUN set -x \
     && apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends zsh \
-		zsh-autosuggestions zsh-syntax-highlighting ansible
+		zsh-autosuggestions zsh-syntax-highlighting  \
+        python3-pip git-all sudo \
+    && apt install software-properties-common -y \
+    && add-apt-repository --yes --update ppa:ansible/ansible \
+    && apt install ansible -y 
 
 # add new user
 RUN set -ex \

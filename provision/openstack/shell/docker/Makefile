@@ -1,5 +1,5 @@
 APP := "openstack-client"
-CONTEXT="provision/openstack/docker"
+CONTEXT="provision/openstack/shell/docker"
 VERSION := "latest"
 
 IMAGE_NAME=$(USER)/$(APP):$(VERSION)

@@ -31,7 +31,7 @@ function provision_vms(){
         then
             export VM_NAME=${vm}  && provision/multipass/setup.sh
         fi
-    done < vm.list
+    done <  "$SCRIPT_DIR/provision/multipass/multipass_vm.list"
     #export VM_NAME=control-center && provision/multipass/setup.sh
 }
 

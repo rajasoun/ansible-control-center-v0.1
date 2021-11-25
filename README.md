@@ -36,16 +36,16 @@ source config/{stage|production}/<openrc.sh>
 cd /workspace
 ```
 
+2. Install MMonit. Add `.vault_password` to `keys` directory with the vault password
+
+```
+provision/common/install_mmonit.sh
+```
+
 2. Install Ansible and Ansible Role in control-center
 
 ```
 provision/common/install_to_cc.sh
-```
-
-3. Install MMonit. Add `.vault_password` to `keys` directory with the vault password
-
-```
-provision/common/install_mmonit.sh
 ```
 
 4. Install Monit, Node Exporter in all Nodes

@@ -12,3 +12,4 @@ playbooks/monit.yml
 playbooks/createusers.yml
 .ansible
 keys/*
+*.env

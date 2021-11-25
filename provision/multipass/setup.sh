@@ -56,11 +56,11 @@ function create_ssh_config_from_template() {
         echo "Reusing Existing SSH Config Files"
         return 0
     fi
-    echo "Generating Config Files..."
+    echo "Generating SSH Config Files..."
     cp "$SSH_TEMPLATE_FILE" "$SSH_CONFIG_FILE"
     IP=$(multipass info "$VM_NAME" | grep IPv4 | awk '{print $2}')
     OCTET=$(echo $IP | awk -F '.' '{ print $1}')
-    file_replace_text "_GATEWAY_IP_.*$" "$OCTET" "$SSH_CONFIG_FILE.*"
+    file_replace_text "_GATEWAY_IP_.*$" "$OCTET" "$SSH_CONFIG_FILE"
 
     echo "$SSH_CONFIG_FILE Generated for $VM_NAME"
 }

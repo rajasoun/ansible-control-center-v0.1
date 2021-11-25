@@ -25,7 +25,7 @@
       ansible.builtin.copy:
         src: "../keys/id_rsa"
         dest: "/home/ubuntu/.ssh/id_rsa"
-        mode: "u=rw,g=r,o=r"
+        mode: "u=rw,g=,o="
 
 
 

@@ -38,11 +38,7 @@ cd /workspace
 
 2. Install MMonit. Add `.vault_password` to `keys` directory with the vault password
 
-```
-provision/common/install_mmonit.sh
-```
-
-2. Install Ansible and Ansible Role in control-center
+3. Install Ansible and Ansible Role in control-center
 
 ```
 provision/common/install_to_cc.sh
@@ -51,7 +47,7 @@ provision/common/install_to_cc.sh
 4. Install Monit, Node Exporter in all Nodes
 
 ```
-ansible-playbook playbooks/monit.yml
+provision/common/install_mmonit.sh
 ```
 
 5. Install Dcoker and Docker-Compose in observability, dashboard and reverse-proxy

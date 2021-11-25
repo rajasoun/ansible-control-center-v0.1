@@ -41,7 +41,7 @@
       - name: Copy SSL Certificates
         tags: ssl_certs
         copy:
-            src: '../playbooks/certs/{{ item }}'
+            src: '../keys/{{ item }}'
             dest: '$HOME/ansible-managed/'
             mode: 'u=rw,g=r,o=r'
         with_items:

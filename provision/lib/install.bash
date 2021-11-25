@@ -1,10 +1,10 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
 
 function install_ansible(){
     sudo apt update
     sudo apt install software-properties-common
     sudo add-apt-repository --yes --update ppa:ansible/ansible
-    sudo apt install ansible -y 
+    sudo apt install ansible -y
 }
 
 function install_ansible_roles(){
@@ -12,9 +12,9 @@ function install_ansible_roles(){
     IP=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 
     case "$IP" in
-        *192* ) 
+        *192* )
             echo "Multipass VM.Skipping User Mgmt";;
-            
+
         * ) echo "User Mgmt"
             ansible-galaxy install -r $VM_HOME/ansible-control-center/dependencies/user-mgmt/requirements.yml
 
@@ -35,4 +35,3 @@ function install_ansible_roles(){
         ;;
     esac
 }
-

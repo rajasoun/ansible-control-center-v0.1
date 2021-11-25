@@ -22,7 +22,3 @@ if [ ! -f "inventory" ]; then
     return 0
 fi
 ansible -m ping all
-
-
-
-

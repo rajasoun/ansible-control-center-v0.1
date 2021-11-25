@@ -16,11 +16,11 @@ function create_monit_playbook_from_template(){
     IP=$(multipass info "mmonit" | grep IPv4 | awk '{print $2}')
     if [ -n $IP ];then
         file_replace_text "_MMONIT_SERVER_IP_.*$" "$IP"  "$MONIT_CONFIG_FILE"
-    else 
+    else
         "mmonit VM Not Available ... Exiting"
         exit 1
     fi
-    
+
 }
 
 function provision_vms(){

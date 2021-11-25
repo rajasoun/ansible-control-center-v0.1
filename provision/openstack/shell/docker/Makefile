@@ -18,9 +18,9 @@ help: ## This help.
 # DOCKER TASKS
 # Build the container
 docker_build: ## Build the container
-	docker build -t $(IMAGE_NAME) $(CONTEXT) 
+	docker build -t $(IMAGE_NAME) $(CONTEXT)
 
-docker_shell: ## Shell to container 
+docker_shell: ## Shell to container
 	docker run --rm -it --name=$(APP_NAME) -v "${PWD}:/workspace" $(IMAGE_NAME)
 
 docker_login: ## Login To Docker

@@ -22,15 +22,15 @@ function provision_vm(){
     if [ ! -f "$CLOUD_INIT_FILE" ]; then
         echo "Initiating Preparation..."
         #check_pre_conditions
-        generate_ssh_key 
-        create_config_from_template 
+        generate_ssh_key
+        create_config_from_template
     fi
     echo "Provisioning $VM_NAME..."
     openstack server create \
                         --image ${IMAGE} \
                         --flavor ${VM_SIZE} \
                         --user-data $CLOUD_INIT_FILE \
-                        $VM_NAME 
+                        $VM_NAME
     echo "Provisioning for $VM_NAME Done !!!"
 }
 
@@ -38,14 +38,14 @@ function create_ansible_inventory_from_template(){
     local SSH_KEY="id_rsa"
     local ANSIBLE_INVENTORY_FILE_TEMPLATE="config/templates/inventory.hosts"
     local ANSIBLE_INVENTORY_FILE="inventory"
-    if [ ! -f $ANSIBLE_INVENTORY_FILE ];then 
+    if [ ! -f $ANSIBLE_INVENTORY_FILE ];then
         cp  $ANSIBLE_INVENTORY_FILE_TEMPLATE $ANSIBLE_INVENTORY_FILE
-    fi 
+    fi
     echo "Waiting for 30 seconds"
-    sleep 30  
+    sleep 30
     VM_IP=$(openstack server list | grep "$VM_NAME" | awk '{print $8}' | tr "=" "\n" | grep -v net)
     echo "VM IP: ${VM_IP}"
-    echo "$VM_NAME  ansible_ssh_host=${VM_IP}  ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa" 
+    echo "$VM_NAME  ansible_ssh_host=${VM_IP}  ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa"
     echo "$VM_NAME  ansible_ssh_host=${VM_IP}  ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa" >> $ANSIBLE_INVENTORY_FILE
     echo "${ANSIBLE_INVENTORY_FILE} generated for ${VM_NAME}"
 }
@@ -73,10 +73,10 @@ provision_vm
 create_ansible_inventory_from_template
 create_ssh_config_from_template
 
-# if [ "$VM_NAME" = "control-center" ]; then 
+# if [ "$VM_NAME" = "control-center" ]; then
 #     echo "Mounting File System in control-center"
 #     multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center
-# fi 
+# fi
 
 OPENSTACK_VM_IP=$(openstack server list | grep "$VM_NAME" | awk '{print $8}' | tr "=" "\n" | grep -v net)
 echo "$VM_NAME with IP : $OPENSTACK_VM_IP | READY"

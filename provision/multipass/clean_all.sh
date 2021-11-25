@@ -3,10 +3,10 @@
 MLIST=$(multipass ls)
 
 case "$MLIST" in
-    *No* ) 
+    *No* )
         echo "Multipass - All Clean";;
     * ) echo "Cleaning"
-        
+
         multipass ls  | grep Running | awk '{print $1}' | xargs multipass stop
         multipass ls  | grep Stopped | awk '{print $1}' | xargs multipass delete
     ;;
@@ -22,4 +22,3 @@ rm -fr config/cloud-init.yaml \
        playbooks/monit.yml \
        playbooks/createusers.yml \
        playbooks/config/ssh-config
-

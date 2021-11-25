@@ -13,3 +13,4 @@ playbooks/createusers.yml
 .ansible
 keys/*
 *.env
+.cache_ggshield

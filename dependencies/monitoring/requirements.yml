@@ -4,5 +4,3 @@
 - src: cloudalchemy.node_exporter
 - src: geerlingguy.docker
 - src: geerlingguy.pip
-
-

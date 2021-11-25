@@ -23,8 +23,8 @@ function provision_vm(){
     if [ ! -f "$CLOUD_INIT_FILE" ]; then
         echo "Initiating Preparation..."
         check_pre_conditions
-        generate_ssh_key 
-        create_config_from_template 
+        generate_ssh_key
+        create_config_from_template
     fi
     echo "Provisioning $VM_NAME..."
     multipass launch --name $VM_NAME \
@@ -37,9 +37,9 @@ function create_ansible_inventory_from_template(){
     local SSH_KEY="id_rsa"
     local ANSIBLE_INVENTORY_FILE_TEMPLATE="config/templates/inventory.hosts"
     local ANSIBLE_INVENTORY_FILE="inventory"
-    if [ ! -f $ANSIBLE_INVENTORY_FILE ];then 
+    if [ ! -f $ANSIBLE_INVENTORY_FILE ];then
         cp  $ANSIBLE_INVENTORY_FILE_TEMPLATE $ANSIBLE_INVENTORY_FILE
-    fi 
+    fi
 
     IP=$(multipass info "$VM_NAME" | grep IPv4 | awk '{print $2}')
     #@ToDo: Optimize Edits
@@ -71,10 +71,10 @@ provision_vm
 create_ansible_inventory_from_template
 create_ssh_config_from_template
 
-if [ "$VM_NAME" = "control-center" ]; then 
+if [ "$VM_NAME" = "control-center" ]; then
     echo "Mounting File System in control-center"
     multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center
-fi 
+fi
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
 echo "$VM_NAME with IP : $MULTIPASS_VM_IP | READY"

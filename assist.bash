@@ -19,7 +19,7 @@ case $choice in
     cat <<-EOF
 Infrastrcute Provision
 ----------------------
-  multipass     -> spin up environment locally 
+  multipass     -> spin up environment locally
   openstack     -> spin up the environment in openstack cloud
 EOF
     ;;

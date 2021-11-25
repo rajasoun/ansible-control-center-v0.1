@@ -16,7 +16,7 @@ RUN set -x \
         python3-pip git-all sudo curl wget \
     && apt install software-properties-common -y \
     && add-apt-repository --yes --update ppa:ansible/ansible \
-    && apt install ansible -y 
+    && apt install ansible -y
 
 # add new user
 RUN set -ex \

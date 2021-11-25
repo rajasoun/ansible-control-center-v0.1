@@ -9,9 +9,9 @@ do
     then
         OLIST=$(openstack server list | grep $vm | wc -l )
         case "$OLIST" in
-            "0" ) 
+            "0" )
                 echo "Open Stack - All Clean";;
-            * ) 
+            * )
                 echo "Cleaning"
                 openstack server delete $vm
             ;;
@@ -28,4 +28,3 @@ rm -fr config/cloud-init.yaml \
        playbooks/config/ssh-config \
        playbooks/createusers.yml
 echo "All Clean"
-

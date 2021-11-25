@@ -72,10 +72,8 @@ create_ansible_inventory_from_template
 create_ssh_config_from_template
 
 if [ "$VM_NAME" = "control-center" ]; then
-    # echo "Mounting File System in control-center"
-    # multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center
-    echo "Transfer Files To Control"
-    transfer_files_to_control_center
+    echo "Mounting File System in control-center"
+    multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center
 fi
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')

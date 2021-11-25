@@ -108,21 +108,3 @@ function _docker() {
   docker "$@"
   return 0
 }
-
-function transfer_files_to_control_center(){
-  OPTS="ANSIBLE_CONFIG=/ansible/ansible.cfg"
-  PLAYBOOK="/ansible/playbooks/control_center.yml"
-  CMD="$OPTS ansible-playbook  -i /ansible/inventory -v $PLAYBOOK"
-
-  _docker run --rm -it --user ansible --name ansible_configure_vm \
-            -v "${PWD}/keys":/keys \
-            -v "${PWD}":/ansible \
-            cytopia/ansible:latest-tools bash -c "$CMD"
-
-  case "$?" in
-    0)
-        echo "VM Configration SUCCESSFULL " ;;
-    1)
-        echo "VM Configration FAILED " ;;
-  esac
-}

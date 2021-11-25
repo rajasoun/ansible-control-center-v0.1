@@ -38,12 +38,15 @@
             dest: '$HOME/ansible-managed/.vault_password'
             mode: 'u=rw,g=r,o=r'
 
-      - name: Copy SSL Certificates
+      - name: Copy  SSL certificates to Host
         tags: ssl_certs
-        copy:
+        ansible.builtin.copy:
             src: '../keys/{{ item }}'
             dest: '$HOME/ansible-managed/'
-            mode: 'u=rw,g=r,o=r'
+            owner: root
+            group: root
+            mode: 'u=rw,g=r,o='
+            # mode: '0440'
         with_items:
             - ssl_certificate.crt
             - ssl_certificate_key.key

@@ -17,16 +17,36 @@
       tags: ssl_certs
       ansible.builtin.copy:
         src: "config/ssh-config"
-        dest: "/home/ubuntu/.ssh/config"
+        dest: "$HOME/.ssh/config"
         mode: "u=rw,g=r,o=r"
 
     - name: Copy  Private Key to Host
       tags: ssh_private_key
       ansible.builtin.copy:
         src: "../keys/id_rsa"
-        dest: "/home/ubuntu/.ssh/id_rsa"
+        dest: "$HOME/.ssh/id_rsa"
         mode: "u=rw,g=,o="
 
+    - name: Create Directory /opt/ansible-managed/    
+      file:
+        path: $HOME/ansible-managed      
+        state: directory
 
+    - name: Copy Ansible Vault File
+      tags: vault_password
+      ansible.builtin.copy:
+        src: "../keys/.vault_password"
+        dest: "$HOME/ansible-managed/.vault_password"
+        mode: "u=rw,g=r,o=r"
 
+    - name: Copy SSL Certificates
+      tags: ssl_certs
+      copy:
+        src: "../playbooks/certs/{{ item }}"
+        dest: "$HOME/ansible-managed/"
+        mode: "u=rw,g=r,o=r"
+      with_items:
+        - ssl_certificate.crt
+        - ssl_certificate_key.key
 
+  

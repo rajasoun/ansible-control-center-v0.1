@@ -43,6 +43,7 @@ cd /workspace
 2. Install & Configure MMonit/Monoit
 
 ```
+multipass shell control-center
 cd ansible-control-center/
 provision/common/mmonit_monit.sh
 ```

@@ -99,14 +99,9 @@ if [ $VM_NAME == "control-center" ]; then
 fi
 
 if [ $VM_NAME == "mmonit" ]; then
-    # Install & Configure MMonit on Monit Node
-    $ANSIBLE_RUNNER "playbooks/mmonit.yml"
-    echo "${GREEN}MMonit Installation & Configuration Done!${NC}"
     # Install & Configure Monit on all Nodes
     create_monit_playbook_from_template
-    $ANSIBLE_RUNNER "playbooks/control-center/transfer-monit-playbook.yml"
-    $ANSIBLE_RUNNER "playbooks/monit.yml"
-    echo "${GREEN}Monit Installation & Configuration Done!${NC}"
+    $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/transfer-monit-playbook.yml"
 fi
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')

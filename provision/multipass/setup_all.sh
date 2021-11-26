@@ -24,6 +24,7 @@ start=$(date +%s)
 provision_vms
 
 ANSIBLE_RUNNER=provision/ansible/run.sh
+# Create users in all Nodes
 $ANSIBLE_RUNNER "ansible-playbook playbooks/createusers.yml"
 echo "${GREEN}User Mgmt for All Nodes Done!${NC}"
 

@@ -40,20 +40,14 @@ source config/{stage|production}/<openrc.sh>
 cd /workspace
 ```
 
-2. Install MMonit to mmonit vm
+2. Install & Configure MMonit/Monoit
 
 ```
 cd ansible-control-center/
-provision/common/install_mmonit.sh
+provision/common/mmonit_monit.sh
 ```
 
-3. Install Monit, Node Exporter to all Nodes
-
-```
-ansible-playbook playbooks/monit.yml
-```
-
-5. Install Dcoker and Docker-Compose in observability, dashboard and reverse-proxy
+3. Install Dcoker and Docker-Compose in observability, dashboard and reverse-proxy
 
 ```
 ansible-playbook playbooks/observability.yml

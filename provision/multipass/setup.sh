@@ -74,6 +74,7 @@ create_ssh_config_from_template
 if [ "$VM_NAME" = "control-center" ]; then
     echo "Mounting File System in control-center"
     multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center
+    multipass exec control-center -- ${VM_HOME}/ansible-control-center/provision/common/install_to_cc.sh
 fi
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')

@@ -26,15 +26,15 @@ function provision_vm(){
         generate_ssh_key
         create_config_from_template
     fi
-    if [ $(multipass list | grep $VM_NAME | wc -l ) == "1" ]; then
-        echo "${ORANGE}${BOLD} $VM Exists. Skipping Proviosning...${NC}"
-        return 1
+    if [ "$(multipass list | grep $VM_NAME | wc -l )" -eq "1" ]; then
+        echo "${ORANGE}${BOLD} $VM_NAME Exists. Skipping Proviosning...${NC}"
+    else
+        echo "Provisioning $VM_NAME..."
+        multipass launch --name $VM_NAME \
+                            --cpus $CPU --mem $MEMORY --disk $DISK \
+                            --cloud-init $CLOUD_INIT_FILE
+        echo "${GREE}${BOLD}Provisioning for $VM_NAME Done !!!${NC}"
     fi
-    echo "Provisioning $VM_NAME..."
-    multipass launch --name $VM_NAME \
-                        --cpus $CPU --mem $MEMORY --disk $DISK \
-                        --cloud-init $CLOUD_INIT_FILE
-    echo "${GREE}${BOLD}Provisioning for $VM_NAME Done !!!${NC}"
 }
 
 function create_ansible_inventory_from_template(){
@@ -90,18 +90,24 @@ create_ssh_config_from_template
 create_user_mgmt_playbook
 
 ANSIBLE_RUNNER=provision/ansible/run.sh
+$ANSIBLE_RUNNER "ansible-playbook playbooks/createusers.yml"
+echo "${GREEN}User Mgmt for All Nodes Done!${NC}"
 
 if [ $VM_NAME == "control-center" ]; then
     $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/main.yml"
     $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/monitoring/requirements.yml"
     $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
-    $ANSIBLE_RUNNER "ansible-playbook playbooks/createusers.yml"
     echo "${GREEN}Control Center Configuration Done!${NC}"
 fi
 
 if [ $VM_NAME == "mmonit" ]; then
+    # Install & Configure MMonit on Monit Node
+    $ANSIBLE_RUNNER "playbooks/monit.yml"
+
+    # Install & Configure Monit on all Nodes
     create_monit_playbook_from_template
     $ANSIBLE_RUNNER "playbooks/control-center/transfer-monit-playbook.yml"
+    echo "${GREEN}Monit Configuration Done for All Nodes!${NC}"
 fi
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')

@@ -20,6 +20,11 @@
       USER_HOME: '/home/ubuntu'
 
   pre_tasks:
+      - name: Descrypt License
+        ansible.builtin.shell: provision/common/decrypt_mmonit_license.sh
+        args:
+            chdir: ansible-control-center/
+
       - name: Create a directory if it does not exist
         ansible.builtin.file:
             path: /etc/certs/ssl
@@ -44,6 +49,12 @@
         debug:
             msg: 'MMonit Admin Password {{ mmonit_admin_password }}'
         when: mmonit_admin_password is defined
+
+  post_tasks:
+      - name: Encrypt License
+        ansible.builtin.shell: provision/common/encrypt_mmonit_license.sh
+        args:
+            chdir: ansible-control-center/
 
   roles:
       - role: rajasoun.ansible_role_mmonit

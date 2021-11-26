@@ -42,10 +42,19 @@ function run_from_docker() {
         --hostname control-center \
         --name control-center \
         --workdir /ansible \
+        --user ansible \
         -v "${PWD}:/ansible" \
         -v "${PWD}/keys:/home/ubuntu/.ssh" \
-        -v "${PWD}/.ansible:/root/.ansible" \
+        -v "${PWD}/.ansible:/home/ansible/.ansible" \
         cytopia/ansible:latest-tools bash -c "$1"
+
+    case "$?" in
+        0)
+            echo "SUCCESSFULL " ;;
+        1)
+            echo "FAILED " ;;
+    esac
+
 }
 
 if [ ! -f "inventory" ]; then

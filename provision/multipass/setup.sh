@@ -79,5 +79,6 @@ $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/monitoring/requirements.
 $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
 
 $ANSIBLE_RUNNER "ansible-playbook playbooks/createusers.yml"
+
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
 echo "$VM_NAME with IP : $MULTIPASS_VM_IP | READY"

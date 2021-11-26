@@ -84,46 +84,8 @@ function create_config_from_template() {
     echo "$USER_CONFIG_FILE & $CLOUD_INIT_CONFIG_FILE Generated"
 }
 
-# Workaround for Path Limitations in Windows
-function _docker() {
-  export MSYS_NO_PATHCONV=1
-  export MSYS2_ARG_CONV_EXCL='*'
-
-  case "$OSTYPE" in
-      *msys*|*cygwin*) os="$(uname -o)" ;;
-      *) os="$(uname)";;
-  esac
-
-  if [[ "$os" == "Msys" ]] || [[ "$os" == "Cygwin" ]]; then
-      # shellcheck disable=SC2230
-      realdocker="$(which -a docker | grep -v "$(readlink -f "$0")" | head -1)"
-      printf "%s\0" "$@" > /tmp/args.txt
-      # --tty or -t requires winpty
-      if grep -ZE '^--tty|^-[^-].*t|^-t.*' /tmp/args.txt; then
-          #exec winpty /bin/bash -c "xargs -0a /tmp/args.txt '$realdocker'"
-          winpty /bin/bash -c "xargs -0a /tmp/args.txt '$realdocker'"
-          return 0
-      fi
-  fi
-  docker "$@"
-  return 0
-}
-
-function install_ansible(){
-    if grep -q docker /proc/1/cgroup; then
-        echo "Inside Docker Ansible Container. Skipping ansible upgrade"
-        export ANSIBLE_HOME="/ansible"
-    else
-        echo "On VM. Upgrading Ansible"
-            sudo apt update
-            sudo apt install software-properties-common
-            sudo add-apt-repository --yes --update ppa:ansible/ansible
-            sudo apt install ansible -y
-    fi
-}
-
-function create_user_creation_playbook(){
-    local USER_TEMPLATE_FILE="config/templates/createusers.yml"
+function create_user_mgmt_playbook(){
+    local USER_TEMPLATE_FILE="config/createusers.yml"
     local USER_CREATE_FILE="playbooks/createusers.yml"
     if [ -f "$USER_CREATE_FILE" ]; then
         echo "$USER_CREATE_FILE Exists"
@@ -132,33 +94,5 @@ function create_user_creation_playbook(){
     fi
     echo "Generating Config Files..."
     cp "$USER_TEMPLATE_FILE" "$USER_CREATE_FILE"
-    local SSH_KEY_PATH="keys"
-    local SSH_KEY="id_rsa"
-    file_replace_text "_SSH_KEY_.*$" "$(cat "$SSH_KEY_PATH"/"${SSH_KEY}".pub)" "$USER_CONFIG_FILE"
     echo "$USER_CREATE_FILE  Generated"
-}
-
-
-function ansible_docker() {
-    echo "Provisioning $VM_NAME... Docker Container"
-    _docker run --rm -it  \
-        --hostname control-center \
-        --name control-center \
-        --workdir /ansible \
-        -v "${PWD}:/ansible" \
-        -v "${PWD}/keys:/home/ubuntu/.ssh" \
-        -v "${PWD}/.ansible:/root/.ansible" \
-        cytopia/ansible:latest-tools
-}
-
-function run_from_docker() {
-    echo "Running $1 in Ansible Container"
-    _docker run --rm -it \
-        --hostname control-center \
-        --name control-center \
-        --workdir /ansible \
-        -v "${PWD}:/ansible" \
-        -v "${PWD}/keys:/home/ubuntu/.ssh" \
-        -v "${PWD}/.ansible:/root/.ansible" \
-        cytopia/ansible:latest-tools bash -c "$1"
 }

@@ -70,15 +70,14 @@ echo "++++++++++++++++++++++"
 provision_vm
 create_ansible_inventory_from_template
 create_ssh_config_from_template
+create_user_mgmt_playbook
 
 echo "Configure Control Center"
-run_from_docker "ansible-playbook playbooks/control-center/main.yml"
-run_from_docker "ansible-galaxy install -r dependencies/monitoring/requirements.yml"
-run_from_docker "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
+ANSIBLE_RUNNER=provision/ansible/run.sh
+$ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/main.yml"
+$ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/monitoring/requirements.yml"
+$ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
 
-create_user_creation_playbook
-run_from_docker "ansible-playbook playbooks/createusers.yml"
-
-echo "$VM_NAME"
+$ANSIBLE_RUNNER "ansible-playbook playbooks/createusers.yml"
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
 echo "$VM_NAME with IP : $MULTIPASS_VM_IP | READY"

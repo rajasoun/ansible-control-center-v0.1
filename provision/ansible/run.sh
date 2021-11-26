@@ -37,8 +37,13 @@ function _docker() {
 }
 
 function run_from_docker() {
+    set -eux
+    # Only allocate tty if one is detected. See - https://stackoverflow.com/questions/911168
+    if [[ -t 0 ]]; then IT+=(-i); fi
+    if [[ -t 1 ]]; then IT+=(-t); fi
+
     echo "Running $1 in Ansible Container"
-    _docker run --rm -it \
+    _docker run --rm "${IT[@]}"  \
         --hostname control-center \
         --name control-center \
         --workdir /ansible \

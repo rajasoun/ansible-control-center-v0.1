@@ -65,8 +65,6 @@ function create_ssh_config_from_template() {
     echo "$SSH_CONFIG_FILE Generated for $VM_NAME"
 }
 
-# IP=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
-
 echo "Provisioning $VM_NAME "
 echo "++++++++++++++++++++++"
 provision_vm

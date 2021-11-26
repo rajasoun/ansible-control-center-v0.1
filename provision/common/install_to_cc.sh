@@ -12,3 +12,5 @@ ANSIBLE_HOME=${ANSIBLE_HOME:-"$HOME/ansible-control-center"}
 
 
 install_ansible
+IP=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
+echo "$VM_NAME | IP -> $IP "

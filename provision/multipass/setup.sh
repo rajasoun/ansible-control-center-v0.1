@@ -30,7 +30,7 @@ function provision_vm(){
     multipass launch --name $VM_NAME \
                         --cpus $CPU --mem $MEMORY --disk $DISK \
                         --cloud-init $CLOUD_INIT_FILE
-    echo "Provisioning for $VM_NAME Done !!!"
+    echo "${GREE}${BOLD}Provisioning for $VM_NAME Done !!!${NC}"
 }
 
 function create_ansible_inventory_from_template(){
@@ -42,10 +42,8 @@ function create_ansible_inventory_from_template(){
     fi
 
     IP=$(multipass info "$VM_NAME" | grep IPv4 | awk '{print $2}')
-    #@ToDo: Optimize Edits
-
     echo "$VM_NAME  ansible_ssh_host=$IP  ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa" >> $ANSIBLE_INVENTORY_FILE
-    echo "${ANSIBLE_INVENTORY_FILE} generated for ${VM_NAME}"
+    echo "${GREEN}${ANSIBLE_INVENTORY_FILE} generated for ${VM_NAME}${NC}"
 }
 
 function create_ssh_config_from_template() {
@@ -62,7 +60,23 @@ function create_ssh_config_from_template() {
     OCTET=$(echo $IP | awk -F '.' '{ print $1}')
     file_replace_text "_GATEWAY_IP_.*$" "$OCTET" "$SSH_CONFIG_FILE"
 
-    echo "$SSH_CONFIG_FILE Generated for $VM_NAME"
+    echo "${GREEN}$SSH_CONFIG_FILE Generated for $VM_NAME ${NC}"
+}
+
+function create_monit_playbook_from_template(){
+    local MONIT_TEMPLATE_FILE="config/templates/monit.yml"
+    local MONIT_CONFIG_FILE="playbooks/monit.yml"
+
+    cp "$MONIT_TEMPLATE_FILE" "$MONIT_CONFIG_FILE"
+    file_replace_text "sda1.*$" "vda1\'"  "$MONIT_CONFIG_FILE"
+    IP=$(multipass info "mmonit" | grep IPv4 | awk '{print $2}')
+    if [ -n $IP ];then
+        file_replace_text "_MMONIT_SERVER_IP_.*$" "$IP"  "$MONIT_CONFIG_FILE"
+    else
+        echo "${ORANGE}mmonit VM Not Available ... Exiting${NC}"
+        exit 1
+    fi
+    echo "${GREEN}$MONIT_CONFIG_FILE Generated for $VM_NAME${NC}"
 }
 
 echo "${UNDERLINE}Provisioning $VM_NAME ${NC}"
@@ -83,4 +97,4 @@ $ANSIBLE_RUNNER "playbooks/control-center/transfer-monit-playbook.yml"
 echo "${GREEN}Control Center Configuration Done!${NC}"
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
-echo "$VM_NAME with IP : $MULTIPASS_VM_IP | READY"
+echo "${GREEN}${BOLD}$VM_NAME with IP : $MULTIPASS_VM_IP | READY ${NC}"

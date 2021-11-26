@@ -69,7 +69,7 @@ function generate_ssh_key() {
                             -f "$SSH_KEY_PATH/${SSH_KEY}" 2>&1 > /dev/null 2>&1
     # Fix Permission For Private Key
     chmod 400 "$SSH_KEY_PATH"/"${SSH_KEY}"
-    echo "${SSH_KEY} & ${SSH_KEY}.pub keys generated successfully"
+    echo "${GREEN}${SSH_KEY} & ${SSH_KEY}.pub keys generated successfully ${NC}"
 }
 
 function create_config_from_template() {
@@ -89,7 +89,7 @@ function create_config_from_template() {
     file_replace_text "_SSH_KEY_.*$" "$(cat "$SSH_KEY_PATH"/"${SSH_KEY}".pub)" "$USER_CONFIG_FILE"
     file_replace_text "ssh-rsa.*$" "$(cat "$SSH_KEY_PATH"/"${SSH_KEY}".pub)" "$CLOUD_INIT_CONFIG_FILE"
 
-    echo "$USER_CONFIG_FILE & $CLOUD_INIT_CONFIG_FILE Generated"
+    echo "${GREEN} $USER_CONFIG_FILE & $CLOUD_INIT_CONFIG_FILE Generated ${NC}"
 }
 
 function create_user_mgmt_playbook(){
@@ -102,5 +102,5 @@ function create_user_mgmt_playbook(){
     fi
     echo "Generating Config Files..."
     cp "$USER_TEMPLATE_FILE" "$USER_CREATE_FILE"
-    echo "$USER_CREATE_FILE  Generated"
+    echo "${GREEN}$USER_CREATE_FILE  Generated ${NC}"
 }

@@ -19,7 +19,9 @@ if [ ! -f "inventory" ]; then
     exit 1
 fi
 
-ansible-playbook playbooks/control_center.yml
+# ansible-playbook playbooks/control_center.yml
+
+run_playbook "playbooks/control_center.yml"
 ansible-playbook playbooks/pip-packages.yml
 
 ansible -m ping all

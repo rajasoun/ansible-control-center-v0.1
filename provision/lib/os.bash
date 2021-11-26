@@ -108,3 +108,27 @@ function _docker() {
   docker "$@"
   return 0
 }
+
+function ansible_docker() {
+    echo "Provisioning $VM_NAME... Docker Container"
+    _docker run --rm -it  \
+        --hostname control-center \
+        --name control-center \
+        --workdir /ansible \
+        -v "${PWD}:/ansible" \
+        -v "${PWD}/keys:/keys" \
+        -v "${PWD}/.ansible:/root/.ansible" \
+        cytopia/ansible:latest-tools
+}
+
+function run_playbook() {
+    echo "Running Playbook $1 in Container"
+    _docker run --rm -it  \
+        --hostname control-center \
+        --name control-center \
+        --workdir /ansible \
+        -v "${PWD}:/ansible" \
+        -v "${PWD}/keys:/keys" \
+        -v "${PWD}/.ansible:/root/.ansible" \
+        cytopia/ansible:latest-tools bash -c "ansible-playbook $1"
+}

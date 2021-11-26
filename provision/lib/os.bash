@@ -121,8 +121,8 @@ function ansible_docker() {
         cytopia/ansible:latest-tools
 }
 
-function run_playbook() {
-    echo "Running Playbook $1 in Container"
+function run_from_docker() {
+    echo "Running $1 in Ansible Container"
     _docker run --rm -it  \
         --hostname control-center \
         --name control-center \
@@ -130,5 +130,5 @@ function run_playbook() {
         -v "${PWD}:/ansible" \
         -v "${PWD}/keys:/keys" \
         -v "${PWD}/.ansible:/root/.ansible" \
-        cytopia/ansible:latest-tools bash -c "ansible-playbook $1"
+        cytopia/ansible:latest-tools bash -c "$1"
 }

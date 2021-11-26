@@ -11,5 +11,12 @@ VM_NAME=${VM_NAME:-"control-center"}
 ANSIBLE_HOME=${ANSIBLE_HOME:-"/home/ubuntu/ansible-control-center"}
 
 
-install_ansible
-install_ansible_roles
+if [ ! -f "inventory" ]; then
+    echo "Inventory File Not Availabe. Exiting..."
+    exit 1
+fi
+
+run_from_docker "ansible-playbook playbooks/control_center.yml"
+run_from_docker "ansible-playbook playbooks/pip-packages.yml"
+
+run_from_docker "ansible -m ping all"

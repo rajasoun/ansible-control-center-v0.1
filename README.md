@@ -43,13 +43,14 @@ cd /workspace
 2. Install MMonit to mmonit vm
 
 ```
+cd ansible-control-center/
 provision/common/install_mmonit.sh
 ```
 
 3. Install Monit, Node Exporter to all Nodes
 
 ```
-
+ansible-playbook playbooks/monit.yml
 ```
 
 5. Install Dcoker and Docker-Compose in observability, dashboard and reverse-proxy

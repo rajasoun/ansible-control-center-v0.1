@@ -29,7 +29,7 @@ function provision_vms(){
     do
         if [[ ! -z $vm ]]
         then
-            echo "${UNDERLINE} Starting $vm Provision...${NC}"
+            echo "${BOLD}$vm${NC}"
             export VM_NAME=${vm}  && provision/multipass/setup.sh
         fi
     done <  "$SCRIPT_DIR/provision/multipass/multipass_vm.list"

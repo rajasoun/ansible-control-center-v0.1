@@ -65,6 +65,8 @@ function create_ssh_config_from_template() {
     echo "$SSH_CONFIG_FILE Generated for $VM_NAME"
 }
 
+# IP=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
+
 echo "Provisioning $VM_NAME "
 echo "++++++++++++++++++++++"
 provision_vm
@@ -73,6 +75,12 @@ create_ssh_config_from_template
 
 echo "Configure Control Center"
 run_from_docker "ansible-playbook playbooks/control-center/main.yml"
+run_from_docker "ansible-galaxy install -r dependencies/monitoring/requirements.yml"
+run_from_docker "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
 
+create_user_creation_playbook
+run_from_docker "ansible-playbook playbooks/createusers.yml"
+
+echo "$VM_NAME"
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
 echo "$VM_NAME with IP : $MULTIPASS_VM_IP | READY"

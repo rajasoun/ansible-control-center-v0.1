@@ -12,4 +12,3 @@ ANSIBLE_HOME=${ANSIBLE_HOME:-"$HOME/ansible-control-center"}
 
 
 install_ansible
-install_ansible_roles

@@ -153,7 +153,7 @@ function ansible_docker() {
 
 function run_from_docker() {
     echo "Running $1 in Ansible Container"
-    _docker run --rm \
+    _docker run --rm -it \
         --hostname control-center \
         --name control-center \
         --workdir /ansible \

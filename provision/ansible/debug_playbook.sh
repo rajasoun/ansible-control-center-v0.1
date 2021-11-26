@@ -16,7 +16,4 @@ if [ ! -f "inventory" ]; then
     exit 1
 fi
 
-run_from_docker "ansible-playbook playbooks/control_center.yml"
-run_from_docker "ansible-playbook playbooks/pip-packages.yml"
-
-run_from_docker "ansible -m ping all"
+run_from_docker "$1"

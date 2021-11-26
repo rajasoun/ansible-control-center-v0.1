@@ -12,7 +12,6 @@
         ansible.builtin.file:
             path: '{{ item }}'
             state: directory
-            mode: '0440'
         with_items:
             - '{{ USER_HOME }}/ansible-managed/certs'
 
@@ -22,9 +21,6 @@
         ansible.builtin.copy:
             src: '../../keys/{{ item }}'
             dest: '{{ USER_HOME }}/ansible-managed/certs/{{ item }}'
-            owner: root
-            group: root
-            mode: 'u=rw,g=r,o=' # mode: '0440'
         with_items:
             - ssl_certificate.crt
             - ssl_certificate_key.key

@@ -10,6 +10,12 @@ locally, or in Openstack
 
 ## Getting Started
 
+0. Add .vault_password fro MMonit license and SSL Certificates
+
+-   Add `.vault_password` to `keys` directory with the vault password
+-   Add `ssl_certificate.crt` to `keys` directory
+-   Add `ssl_certificate_key.key` to `keys` directory
+
 1. Create Infrastructure VMs locally or in cloud
     - control-center
     - mmonit
@@ -24,7 +30,6 @@ Multipass Specific (Local)
 
 ```
 ./assist.bash multipass
-multipass shell control-center
 ```
 
 Open Stack (On Prem Cloud)
@@ -35,12 +40,16 @@ source config/{stage|production}/<openrc.sh>
 cd /workspace
 ```
 
-2. Install MMonit. Add `.vault_password` to `keys` directory with the vault password
-
-3. Configure MMonit, Node Exporter in all Nodes
+2. Install MMonit to mmonit vm
 
 ```
 provision/common/install_mmonit.sh
+```
+
+3. Install Monit, Node Exporter to all Nodes
+
+```
+
 ```
 
 5. Install Dcoker and Docker-Compose in observability, dashboard and reverse-proxy

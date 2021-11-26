@@ -17,7 +17,7 @@ function create_monit_playbook_from_template(){
     if [ -n $IP ];then
         file_replace_text "_MMONIT_SERVER_IP_.*$" "$IP"  "$MONIT_CONFIG_FILE"
     else
-        "mmonit VM Not Available ... Exiting"
+        echo "${ORANGE}mmonit VM Not Available ... Exiting${NC}"
         exit 1
     fi
 
@@ -29,6 +29,7 @@ function provision_vms(){
     do
         if [[ ! -z $vm ]]
         then
+            echo "${UNDERLINE} Starting $vm Provision...${NC}"
             export VM_NAME=${vm}  && provision/multipass/setup.sh
         fi
     done <  "$SCRIPT_DIR/provision/multipass/multipass_vm.list"
@@ -37,7 +38,6 @@ function provision_vms(){
 
 start=$(date +%s)
 provision_vms
-create_monit_playbook_from_template
 end=$(date +%s)
 runtime=$((end-start))
-echo -e "Full Setup Done In $(display_time $runtime)"
+echo -e "${GREEN}${BOLD}Full Setup Done In $(display_time $runtime)${NC}"

@@ -3,6 +3,5 @@
 - import_playbook: transfer-ssh-keys.yml
 - import_playbook: trasfer-ssl-certs.yml
 - import_playbook: transfer-inventory.yml
-- import_playbook: transfer-monit-playbook.yml
 - import_playbook: etc.yml
 - import_playbook: install.yml

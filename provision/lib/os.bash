@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+NC=$'\e[0m' # No Color
+BOLD=$'\033[1m'
+UNDERLINE=$'\033[4m'
+RED=$'\e[31m'
+GREEN=$'\e[32m'
+BLUE=$'\e[34m'
+ORANGE=$'\x1B[33m'
+
 # Returns true (0) if this is an OS X server or false (1) otherwise.
 function os_is_darwin {
   [[ $(uname -s) == "Darwin" ]]

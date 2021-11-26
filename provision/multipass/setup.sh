@@ -65,20 +65,22 @@ function create_ssh_config_from_template() {
     echo "$SSH_CONFIG_FILE Generated for $VM_NAME"
 }
 
-echo "Provisioning $VM_NAME "
-echo "++++++++++++++++++++++"
+echo "${UNDERLINE}${BOLD}Provisioning $VM_NAME ${NC}"
 provision_vm
 create_ansible_inventory_from_template
 create_ssh_config_from_template
 create_user_mgmt_playbook
+create_monit_playbook_from_template
 
-echo "Configure Control Center"
 ANSIBLE_RUNNER=provision/ansible/run.sh
 $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/main.yml"
 $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/monitoring/requirements.yml"
 $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
 
 $ANSIBLE_RUNNER "ansible-playbook playbooks/createusers.yml"
+$ANSIBLE_RUNNER "playbooks/control-center/transfer-monit-playbook.yml"
+
+echo "${GREEN}Control Center Configuration Done!${NC}"
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
 echo "$VM_NAME with IP : $MULTIPASS_VM_IP | READY"

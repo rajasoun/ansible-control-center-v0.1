@@ -1,0 +1,13 @@
+---
+- name: Configure control-center
+  hosts: control-center
+
+  vars:
+      USER_HOME: '/home/ubuntu'
+
+  tasks:
+      - name: Copy Inventory to Host
+        tags: inventory
+        ansible.builtin.copy:
+            src: '../../inventory'
+            dest: '{{ USER_HOME }}/ansible-control-center'

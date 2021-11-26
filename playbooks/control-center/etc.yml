@@ -9,8 +9,6 @@
         blockinfile:
             path: /etc/hosts
             block: |
-                {% for host in groups['all'] %}
+                {% for host in groups['all'] | difference(['localhost']) %}
                 {{ hostvars[host].ansible_ssh_host }} {{ host }}
                 {% endfor %}
-        become: true
-        become_method: sudo

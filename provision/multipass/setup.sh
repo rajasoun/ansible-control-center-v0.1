@@ -90,8 +90,6 @@ create_ssh_config_from_template
 create_user_mgmt_playbook
 
 ANSIBLE_RUNNER=provision/ansible/run.sh
-$ANSIBLE_RUNNER "ansible-playbook playbooks/createusers.yml"
-echo "${GREEN}User Mgmt for All Nodes Done!${NC}"
 
 if [ $VM_NAME == "control-center" ]; then
     $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/main.yml"

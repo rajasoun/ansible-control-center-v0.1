@@ -17,6 +17,8 @@
           - ssl_certificate.crt
           - ssl_certificate_key.key
 
+      USER_HOME: '/home/ubuntu'
+
   pre_tasks:
       - name: Create a directory if it does not exist
         ansible.builtin.file:
@@ -26,7 +28,7 @@
       - name: Copy  SSL certificates to Host
         tags: ssl_certs
         ansible.builtin.copy:
-            src: '$HOME/ansible-managed/{{ item }}'
+            src: '{{ USER_HOME }}/ansible-managed/{{ item }}'
             dest: '/etc/certs/ssl/{{ item }}'
             owner: root
             group: root

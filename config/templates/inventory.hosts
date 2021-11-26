@@ -1,3 +1,5 @@
+[local]
 localhost      ansible_connection=local
 
 ### Private Key File Path is Of the Guest Controller Machine & Not the Host ###
+[monitoring]

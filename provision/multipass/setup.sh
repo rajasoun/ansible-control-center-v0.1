@@ -71,12 +71,8 @@ provision_vm
 create_ansible_inventory_from_template
 create_ssh_config_from_template
 
-if [ "$VM_NAME" = "control-center" ]; then
-    echo "Git Clone"
-    #multipass mount ${PWD}  ${VM_NAME}:${VM_HOME}/ansible-control-center
-    run_from_docker "ansible-playbook playbooks/git-checkout.yml"
-
-fi
+echo "Configure Control Center"
+run_from_docker "ansible-playbook playbooks/control_center.yml"
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
 echo "$VM_NAME with IP : $MULTIPASS_VM_IP | READY"

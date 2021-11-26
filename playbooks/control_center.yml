@@ -1,7 +1,14 @@
 ---
-- hosts: control-center
+- import_playbook: git-checkout.yml
+- name: Configure control-center
+  hosts: control-center
 
   tasks:
+      - name: Upgrade Ansible && Install Ansible Role Dependencies
+        ansible.builtin.shell: provision/common/install_to_cc.sh
+        args:
+            chdir: ansible-control-center/
+
       - name: Add Ansible inventory mappings to /etc/hosts
         blockinfile:
             path: /etc/hosts

@@ -25,7 +25,6 @@ Multipass Specific (Local)
 ```
 ./assist.bash multipass
 multipass shell control-center
-cd ansible-control-center
 ```
 
 Open Stack (On Prem Cloud)
@@ -38,13 +37,7 @@ cd /workspace
 
 2. Install MMonit. Add `.vault_password` to `keys` directory with the vault password
 
-3. Install Ansible and Ansible Role in control-center
-
-```
-provision/common/install_to_cc.sh
-```
-
-4. Install Monit, Node Exporter in all Nodes
+3. Configure MMonit, Node Exporter in all Nodes
 
 ```
 provision/common/install_mmonit.sh

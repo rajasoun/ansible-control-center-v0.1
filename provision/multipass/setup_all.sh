@@ -22,6 +22,11 @@ function provision_vms(){
 
 start=$(date +%s)
 provision_vms
+
+ANSIBLE_RUNNER=provision/ansible/run.sh
+$ANSIBLE_RUNNER "ansible-playbook playbooks/createusers.yml"
+echo "${GREEN}User Mgmt for All Nodes Done!${NC}"
+
 end=$(date +%s)
 runtime=$((end-start))
 echo -e "${GREEN}${BOLD}Full Setup Done In $(display_time $runtime)${NC}"

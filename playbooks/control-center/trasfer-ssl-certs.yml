@@ -1,0 +1,30 @@
+---
+- name: SSL Certificates Management
+  hosts: control-center
+  become: true
+  become_method: sudo
+
+  vars:
+      USER_HOME: '/home/ubuntu'
+
+  pre_tasks:
+      - name: Create a directory if it does not exist
+        ansible.builtin.file:
+            path: '{{ item }}'
+            state: directory
+            mode: '0440'
+        with_items:
+            - '{{ USER_HOME }}/ansible-managed/certs'
+
+  tasks:
+      - name: Copy  SSL certificates to Host
+        tags: ssl_certs
+        ansible.builtin.copy:
+            src: '../keys/{{ item }}'
+            dest: '{{ USER_HOME }}/ansible-managed/certs/{{ item }}'
+            owner: root
+            group: root
+            mode: 'u=rw,g=r,o=' # mode: '0440'
+        with_items:
+            - ssl_certificate.crt
+            - ssl_certificate_key.key

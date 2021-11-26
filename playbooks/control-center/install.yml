@@ -1,0 +1,9 @@
+---
+- name: Upgrade Ansible && Install Ansible Role Dependencies
+  hosts: control-center
+
+  pre_tasks:
+      - name: Upgrade Ansible && Install Ansible Role Dependencies
+        ansible.builtin.shell: provision/common/install_to_cc.sh
+        args:
+            chdir: ansible-control-center/

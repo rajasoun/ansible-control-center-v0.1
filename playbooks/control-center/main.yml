@@ -1,0 +1,6 @@
+---
+- import_playbook: install.yml
+- import_playbook: git-checkout.yml
+- import_playbook: transfer-ssh-keys.yml
+- import_playbook: trasfer-ssl-certs.yml
+- import_playbook: etc.yml

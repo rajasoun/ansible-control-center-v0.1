@@ -72,7 +72,7 @@ create_ansible_inventory_from_template
 create_ssh_config_from_template
 
 echo "Configure Control Center"
-run_from_docker "ansible-playbook playbooks/control_center.yml"
+run_from_docker "ansible-playbook playbooks/control-center/main.yml"
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
 echo "$VM_NAME with IP : $MULTIPASS_VM_IP | READY"

@@ -97,10 +97,10 @@ function create_user_mgmt_playbook(){
     local USER_CREATE_FILE="playbooks/createusers.yml"
     if [ -f "$USER_CREATE_FILE" ]; then
         echo "$USER_CREATE_FILE Exists"
-        echo "Reusing Existing Config Files"
+        echo "Reusing Existing $USER_CREATE_FILE File"
         return 0
     fi
     echo "Generating Config Files..."
     cp "$USER_TEMPLATE_FILE" "$USER_CREATE_FILE"
-    echo "${GREEN}$USER_CREATE_FILE  Generated ${NC}"
+    echo "${GREEN}$USER_CREATE_FILE Copied ${NC}"
 }

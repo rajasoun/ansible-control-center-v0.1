@@ -84,7 +84,6 @@ provision_vm
 create_ansible_inventory_from_template
 create_ssh_config_from_template
 create_user_mgmt_playbook
-create_monit_playbook_from_template
 
 ANSIBLE_RUNNER=provision/ansible/run.sh
 $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/main.yml"
@@ -92,9 +91,13 @@ $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/monitoring/requirements.
 $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
 
 $ANSIBLE_RUNNER "ansible-playbook playbooks/createusers.yml"
-$ANSIBLE_RUNNER "playbooks/control-center/transfer-monit-playbook.yml"
-
 echo "${GREEN}Control Center Configuration Done!${NC}"
+
+## Generate monit playbook only if mmonit vm is present
+if [ $(multipass list | grep mmonit | wc -l ) == '1' ];then
+    create_monit_playbook_from_template
+    $ANSIBLE_RUNNER "playbooks/control-center/transfer-monit-playbook.yml"
+fi
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
 echo "${GREEN}${BOLD}$VM_NAME with IP : $MULTIPASS_VM_IP | READY ${NC}"

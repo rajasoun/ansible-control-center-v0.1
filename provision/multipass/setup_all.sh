@@ -12,7 +12,7 @@ function create_monit_playbook_from_template(){
     local MONIT_CONFIG_FILE="playbooks/monit.yml"
 
     cp "$MONIT_TEMPLATE_FILE" "$MONIT_CONFIG_FILE"
-    file_replace_text "sda1.*$" "vda1\""  "$MONIT_CONFIG_FILE"
+    file_replace_text "sda1.*$" "vda1\'"  "$MONIT_CONFIG_FILE"
     IP=$(multipass info "mmonit" | grep IPv4 | awk '{print $2}')
     if [ -n $IP ];then
         file_replace_text "_MMONIT_SERVER_IP_.*$" "$IP"  "$MONIT_CONFIG_FILE"

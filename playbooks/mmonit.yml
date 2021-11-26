@@ -28,7 +28,7 @@
       - name: Copy  SSL certificates to Host
         tags: ssl_certs
         ansible.builtin.copy:
-            src: '{{ USER_HOME }}/ansible-managed/{{ item }}'
+            src: '{{ USER_HOME }}/ansible-managed/certs/{{ item }}'
             dest: '/etc/certs/ssl/{{ item }}'
             owner: root
             group: root

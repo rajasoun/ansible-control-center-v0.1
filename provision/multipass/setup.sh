@@ -26,6 +26,10 @@ function provision_vm(){
         generate_ssh_key
         create_config_from_template
     fi
+    if [ $(multipass list | grep $VM_NAME | wc -l ) == "1" ]; then
+        echo "${ORANGE}${BOLD} $VM Exists. Skipping Proviosning...${NC}"
+        return 1
+    fi
     echo "Provisioning $VM_NAME..."
     multipass launch --name $VM_NAME \
                         --cpus $CPU --mem $MEMORY --disk $DISK \

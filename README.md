@@ -80,4 +80,5 @@ sed -i '' "s/127.0.0.1/$IP/" k3s.yaml
 export KUBECONFIG=$PWD/k3s.yaml
 
 kubectl get nodes
+kubectl label nodes k3s-worker kubernetes.io/role=worker
 ```

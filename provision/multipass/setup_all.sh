@@ -45,7 +45,7 @@ ANSIBLE_RUNNER=provision/ansible/run.sh
 if [ $(multipass list | grep -c  "control-center" ) -eq "1" ]; then
     CONF_SATATE=$(cat provision/multipass/.state | grep -c ".control-center.conf=done")
     # If Not Already Configured
-    if [ $CONF_SATATE -eq "1" ];then
+    if [ $CONF_SATATE -eq "0" ];then
         $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/main.yml"
         $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/monitoring/requirements.yml"
         $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
@@ -58,7 +58,7 @@ fi
 if [ $(multipass list | grep -c  "mmonit" ) -eq "1" ]; then
     CONF_SATATE=$(cat provision/multipass/.state | grep -c ".mmonit.conf=done")
     # If Not Already Configured
-    if [ $CONF_SATATE -eq "1" ];then
+    if [ $CONF_SATATE -eq "0" ];then
         # Install & Configure Monit on all Nodes
         create_monit_playbook_from_template
         $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/transfer-monit-playbook.yml"

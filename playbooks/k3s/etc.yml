@@ -1,5 +1,5 @@
 ---
-- name: Configure control-center
+- name: Configure k3s-worker
   hosts: k3s-worker
   become: true
   become_method: sudo

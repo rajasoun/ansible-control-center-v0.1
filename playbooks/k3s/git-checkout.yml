@@ -13,3 +13,9 @@
             dest: '{{ item.name }}'
             update: yes
         with_items: '{{ git_repos }}'
+
+      - name: Copy k3s Roles to ~/.ansible
+        copy:
+            src: '{{ item }}'
+            dest: '~/.ansible/roles/'
+        with_fileglob: ~/k3s-ansible/roles/**

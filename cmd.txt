@@ -1,0 +1,3 @@
+echo Starting Provisioning
+export VM_NAME=control-center  && provision/multipass/setup.sh
+export VM_NAME=mmonit  && provision/multipass/setup.sh

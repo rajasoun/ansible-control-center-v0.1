@@ -37,7 +37,6 @@ function provision_vms(){
             export VM_NAME=${vm}  && provision/multipass/setup.sh
         fi
     done <  "$SCRIPT_DIR/provision/multipass/multipass_vm.list"
-    #export VM_NAME=control-center && provision/multipass/setup.sh
 }
 
 # Configure Control Center based on state file

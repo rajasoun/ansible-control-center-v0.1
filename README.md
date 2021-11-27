@@ -81,4 +81,10 @@ export KUBECONFIG=$PWD/k3s.yaml
 
 kubectl get nodes
 kubectl label nodes k3s-worker kubernetes.io/role=worker
+
+kubectl -n kubernetes-dashboard describe secret admin-user-token | grep '^token'
+kubectl proxy
+
+Visit -> http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+
 ```

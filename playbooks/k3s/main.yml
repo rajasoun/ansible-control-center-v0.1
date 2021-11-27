@@ -1,4 +1,0 @@
----
-- import_playbook: prereq.yml
-- import_playbook: etc.yml
-- import_playbook: setup.yml

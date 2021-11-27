@@ -40,22 +40,35 @@ start=$(date +%s)
 provision_vms
 
 ANSIBLE_RUNNER=provision/ansible/run.sh
+
+# Configure Control Center
 if [ $(multipass list | grep -c  "control-center" ) -eq "1" ]; then
-    $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/main.yml"
-    $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/monitoring/requirements.yml"
-    $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
-    echo "${GREEN}Control Center Configuration Done!${NC}"
+    CONF_SATATE=$(cat provision/multipass/.state | grep -c ".control-center.conf=done")
+    # If Not Already Configured
+    if [ $CONF_SATATE -eq "1" ];then
+        $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/main.yml"
+        $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/monitoring/requirements.yml"
+        $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
+        echo "${GREEN}Control Center Configuration Done!${NC}"
+        echo ".control-center.conf=done" >> "provision/multipass/.state"
+    fi
 fi
 
+# Generate and Transfer monit.yml to control center
 if [ $(multipass list | grep -c  "mmonit" ) -eq "1" ]; then
-    # Install & Configure Monit on all Nodes
-    create_monit_playbook_from_template
-    $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/transfer-monit-playbook.yml"
-    echo "${GREEN}Monit Transfer to Control Center Done!${NC}"
+    CONF_SATATE=$(cat provision/multipass/.state | grep -c ".mmonit.conf=done")
+    # If Not Already Configured
+    if [ $CONF_SATATE -eq "1" ];then
+        # Install & Configure Monit on all Nodes
+        create_monit_playbook_from_template
+        $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/transfer-monit-playbook.yml"
+        echo "${GREEN}Monit Transfer to Control Center Done!${NC}"
 
-    # Configure all VMs with monit
-    $ANSIBLE_RUNNER "ansible-playbook playbooks/monit.yml"
-    echo "${GREEN}Monit for All Nodes Done!${NC}"
+        # Configure all VMs with monit
+        $ANSIBLE_RUNNER "ansible-playbook playbooks/monit.yml"
+        echo "${GREEN}Monit for All Nodes Done!${NC}"
+        echo ".mmonit.conf=done" >> "provision/multipass/.state"
+    fi
 fi
 
 # Create ansible users in all Nodes

@@ -14,3 +14,4 @@ playbooks/createusers.yml
 keys/*
 *.env
 .cache_ggshield
+provision/multipass/.state

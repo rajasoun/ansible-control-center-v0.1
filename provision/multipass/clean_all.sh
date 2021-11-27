@@ -21,4 +21,5 @@ rm -fr config/cloud-init.yaml \
        keys/id_rsa.pub \
        playbooks/monit.yml \
        playbooks/createusers.yml \
-       playbooks/config/ssh-config
+       playbooks/config/ssh-config \
+       provision/multipass/.state

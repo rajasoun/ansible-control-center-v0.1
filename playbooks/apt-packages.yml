@@ -1,0 +1,9 @@
+---
+- hosts: control-center,!localhost
+
+  tasks:
+      - name: Install a list of packages
+        apt:
+            pkg:
+                - tar
+        update_cache: yes

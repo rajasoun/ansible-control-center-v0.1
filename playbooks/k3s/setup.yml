@@ -8,12 +8,12 @@
       - role: prereq
       - role: download
 
-- hosts: k3s-master
+- hosts: master
   become: yes
   roles:
       - role: k3s/master
 
-- hosts: k3s-worker
+- hosts: worker
   become: yes
   roles:
       - role: k3s/node

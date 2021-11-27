@@ -18,4 +18,4 @@
         copy:
             src: '{{ item }}'
             dest: '~/.ansible/roles/'
-        with_fileglob: ~/k3s-ansible/roles/**
+        with_items: ['prereq', 'download', 'k3s', 'reset']

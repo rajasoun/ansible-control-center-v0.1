@@ -13,7 +13,7 @@
   roles:
       - role: k3s/master
 
-- hosts: worker
+- hosts: node
   become: yes
   roles:
       - role: k3s/node

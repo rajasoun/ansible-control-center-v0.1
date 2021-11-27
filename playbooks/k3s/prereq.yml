@@ -8,12 +8,6 @@
             url: 'https://github.com/k3s-io/k3s-ansible'
 
   tasks:
-      - name: Copy k3s Inventory to Control Center
-        tags: inventory
-        ansible.builtin.copy:
-            src: 'inventory'
-            dest: '{{ USER_HOME }}/ansible-control-center/k3s'
-
       - name: Git checkout
         ansible.builtin.git:
             repo: '{{ item.url}}'

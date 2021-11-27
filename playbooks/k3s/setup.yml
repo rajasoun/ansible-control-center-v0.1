@@ -15,6 +15,5 @@
 
 - hosts: node
   become: yes
-  import_playbook: prereq.yml
   roles:
       - role: k3s/node

@@ -9,7 +9,7 @@ case $choice in
   multipass)
     echo "Local Setup using multipass..."
     provision/multipass/setup_all.sh
-    multipass shell control-center
+    #multipass shell control-center
     ;;
   openstack)
     echo "Cloud Setup using openstack..."

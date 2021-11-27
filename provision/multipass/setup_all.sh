@@ -76,14 +76,14 @@ function create_transfer_monit_conf_to_control_center(){
 }
 
 # Create ansible users in all Nodes
-function create_user(){
-    CONF_STATE=$(cat provision/multipass/.state | grep -c .users.conf=done) || echo "${RED}Users Conf State is Empty${NC}"
+function manage_vms(){
+    CONF_STATE=$(cat provision/multipass/.state | grep -c .vms.conf=done) || echo "${RED}VM Conf State is Empty${NC}"
     if [ $CONF_STATE -eq "0" ];then
-        $ANSIBLE_RUNNER "ansible-playbook playbooks/createusers.yml"
-        echo ".users.conf=done" >> "provision/multipass/.state"
-        echo "${GREEN}User Mgmt for All Nodes Done!${NC}"
+        $ANSIBLE_RUNNER "ansible-playbook playbooks/manage-vm.yml"
+        echo ".vm.conf=done" >> "provision/multipass/.state"
+        echo "${GREEN}VM Mgmt for All Nodes Done!${NC}"
     else
-        echo "${BLUE} Skipping Users Configuration ${NC}"
+        echo "${BLUE} Skipping VM Configuration ${NC}"
     fi
 }
 

@@ -5,6 +5,8 @@
       git_repos:
           - name: 'ansible-control-center'
             url: 'https://github.com/rajasoun/ansible-control-center'
+          - name: 'k3s-ansible'
+            url: 'https://github.com/k3s-io/k3s-ansible'
 
   tasks:
       - name: Git checkout

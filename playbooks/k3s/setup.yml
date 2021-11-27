@@ -15,5 +15,14 @@
 
 - hosts: node
   become: yes
+  import_playbook: prereq.yml
+  tasks:
+      - name: Add Ansible inventory mappings to /etc/hosts
+        blockinfile:
+            path: /etc/hosts
+            block: |
+                {% for host in groups['k3s-master'] | difference(['localhost']) %}
+                {{ hostvars[host].ansible_ssh_host }} {{ host }}
+                {% endfor %}
   roles:
       - role: k3s/node

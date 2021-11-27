@@ -1,9 +1,21 @@
 ---
-- hosts: control-center,!localhost
+- hosts: all,!localhost
+  become: true
+  become_method: sudo
 
-  tasks:
-      - name: Install a list of packages
+  # pre_tasks is a task which Ansible executes before executing any tasks mentioned in .yml file.
+  pre_tasks:
+      - name: check apt last update
+        stat: path=/var/cache/apt
+        register: apt_cache_stat
+      - name: update apt if needed # Update if not modified since the last 12 hours
+        apt: update_cache=yes
+        when: ansible_date_time.epoch|float - apt_cache_stat.stat.mtime > 60*60*12
+      - name: Install the package "python-netaddr" # Dependency for Docker Hardening on Controller
         apt:
             pkg:
-                - tar
-        update_cache: yes
+                - python-netaddr
+      - name: Set discovered Ansible Python interpreter.
+        set_fact:
+            ansible_python_interpreter: '{{ ansible_facts.python.executable }}'
+        when: ansible_python_interpreter is not defined

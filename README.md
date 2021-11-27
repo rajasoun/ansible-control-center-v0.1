@@ -70,5 +70,6 @@ k3s Ansible Setup
 
 ```
 multipass shell control-center
-ansible-playbook playbooks/k3s/setup.yml
+
+ansible-playbook playbooks/k3s/main.yml
 ```

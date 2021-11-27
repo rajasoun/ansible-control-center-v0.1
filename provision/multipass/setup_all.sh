@@ -75,11 +75,11 @@ function create_transfer_monit_conf_to_control_center(){
     fi
 }
 
-# Create ansible users in all Nodes
-function manage_vms(){
+# Create ansible users, install monit for all Nodes
+function configure_vms(){
     CONF_STATE=$(cat provision/multipass/.state | grep -c .vms.conf=done) || echo "${RED}VM Conf State is Empty${NC}"
     if [ $CONF_STATE -eq "0" ];then
-        $ANSIBLE_RUNNER "ansible-playbook playbooks/manage-vm.yml"
+        $ANSIBLE_RUNNER "ansible-playbook playbooks/configure-vm.yml"
         echo ".vm.conf=done" >> "provision/multipass/.state"
         echo "${GREEN}VM Mgmt for All Nodes Done!${NC}"
     else
@@ -91,7 +91,7 @@ start=$(date +%s)
 provision_vms
 configure_control_center
 create_transfer_monit_conf_to_control_center
-create_user
+configure_vms
 end=$(date +%s)
 runtime=$((end-start))
 echo -e "${GREEN}${BOLD}Full Setup Done In $(display_time $runtime)${NC}"

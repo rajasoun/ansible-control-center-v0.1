@@ -61,7 +61,5 @@ ansible-playbook playbooks/reverse-proxy.yml
 2. Execute following Playbboks for User Mgmt, Monitoring and Host Mappings in control-center
 
 ```
-provision/ansible/run.sh "ansible-playbook playbooks/manage-vm.yml"
+provision/ansible/run.sh "ansible-playbook playbooks/configure-vm.yml"
 ```
-
-`ansible-playbook playbooks/control_center.yml` to update /etc/hosts and SSH Config to control center

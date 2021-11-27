@@ -67,22 +67,6 @@ function create_ssh_config_from_template() {
     echo "${GREEN}$SSH_CONFIG_FILE Generated for $VM_NAME ${NC}"
 }
 
-function create_monit_playbook_from_template(){
-    local MONIT_TEMPLATE_FILE="config/templates/monit.yml"
-    local MONIT_CONFIG_FILE="playbooks/monit.yml"
-
-    cp "$MONIT_TEMPLATE_FILE" "$MONIT_CONFIG_FILE"
-    file_replace_text "sda1.*$" "vda1\'"  "$MONIT_CONFIG_FILE"
-    IP=$(multipass info "mmonit" | grep IPv4 | awk '{print $2}')
-    if [ -n $IP ];then
-        file_replace_text "_MMONIT_SERVER_IP_.*$" "$IP"  "$MONIT_CONFIG_FILE"
-    else
-        echo "${ORANGE}mmonit VM Not Available ... Exiting${NC}"
-        exit 1
-    fi
-    echo "${GREEN}$MONIT_CONFIG_FILE Generated for $VM_NAME${NC}"
-}
-
 echo "${UNDERLINE}Provisioning $VM_NAME ${NC}"
 provision_vm
 create_ansible_inventory_from_template

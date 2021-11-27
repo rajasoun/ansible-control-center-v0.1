@@ -24,6 +24,8 @@ function create_monit_playbook_from_template(){
 }
 
 function provision_vms(){
+    # Create .state File if not exists
+    [  -f "provision/multipass/.state" ] || touch "provision/multipass/.state"
     # declare -a vm_list=$(cat config/observability.vm.list)
     while read -r vm
     do

@@ -33,6 +33,7 @@ function provision_vm(){
         multipass launch --name $VM_NAME \
                             --cpus $CPU --mem $MEMORY --disk $DISK \
                             --cloud-init $CLOUD_INIT_FILE
+        echo "multipass launch --name $VM_NAME --cpus $CPU --mem $MEMORY --disk $DISK --cloud-init $CLOUD_INIT_FILE" >> cmd.txt
         echo "${GREE}${BOLD}Provisioning for $VM_NAME Done !!!${NC}"
     fi
 }

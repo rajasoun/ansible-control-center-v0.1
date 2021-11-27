@@ -63,3 +63,12 @@ ansible-playbook playbooks/reverse-proxy.yml
 ```
 provision/ansible/run.sh "ansible-playbook playbooks/configure-vm.yml"
 ```
+
+## k3s Setup
+
+k3s Ansible Setup
+
+```
+multipass shell control-center
+ansible-playbook playbooks/k3s/setup.yml
+```

@@ -1,5 +1,15 @@
 [local]
 localhost      ansible_connection=local
 
+[master]
+k3s-master
+
+[node]
+k3s-worker
+
+[k3s_cluster:children]
+master
+node
+
 ### Private Key File Path is Of the Guest Controller Machine & Not the Host ###
 [monitoring]

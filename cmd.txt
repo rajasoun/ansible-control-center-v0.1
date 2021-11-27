@@ -1,2 +1,4 @@
 multipass launch --name control-center --cpus 2 --mem 2G --disk 4G --cloud-init config/cloud-init.yaml
 multipass launch --name mmonit --cpus 2 --mem 2G --disk 4G --cloud-init config/cloud-init.yaml
+multipass launch --name k3s-master --cpus 2 --mem 2G --disk 4G --cloud-init config/cloud-init.yaml
+multipass launch --name k3s-worker --cpus 2 --mem 2G --disk 4G --cloud-init config/cloud-init.yaml

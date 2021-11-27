@@ -26,7 +26,7 @@ function provision_vm(){
         generate_ssh_key
         create_config_from_template
     fi
-    if [ "$(multipass list | grep $VM_NAME | wc -l )" -eq "1" ]; then
+    if [ "$(multipass list | grep -c $VM_NAME )" -eq "1" ]; then
         echo "${ORANGE}${BOLD} $VM_NAME Exists. Skipping Proviosning...${NC}"
     else
         echo "Provisioning $VM_NAME..."
@@ -88,21 +88,6 @@ provision_vm
 create_ansible_inventory_from_template
 create_ssh_config_from_template
 create_user_mgmt_playbook
-
-ANSIBLE_RUNNER=provision/ansible/run.sh
-
-if [ $VM_NAME == "control-center" ]; then
-    $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/main.yml"
-    $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/monitoring/requirements.yml"
-    $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
-    echo "${GREEN}Control Center Configuration Done!${NC}"
-fi
-
-if [ $VM_NAME == "mmonit" ]; then
-    # Install & Configure Monit on all Nodes
-    create_monit_playbook_from_template
-    $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/transfer-monit-playbook.yml"
-fi
 
 MULTIPASS_VM_IP=$(multipass info $VM_NAME | grep 'IPv4' | awk '{print $2}')
 echo "${GREEN}${BOLD}$VM_NAME with IP : $MULTIPASS_VM_IP | READY ${NC}"

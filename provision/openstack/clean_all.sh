@@ -7,7 +7,7 @@ while read -r vm
 do
     if [[ ! -z $vm ]]
     then
-        OLIST=$(openstack server list | grep $vm | wc -l )
+        OLIST=$(openstack server list | grep -c $vm  )
         case "$OLIST" in
             "0" )
                 echo "Open Stack - All Clean";;

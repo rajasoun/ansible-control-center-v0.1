@@ -24,7 +24,21 @@ start=$(date +%s)
 provision_vms
 
 ANSIBLE_RUNNER=provision/ansible/run.sh
-# Create users in all Nodes
+if [ $(multipass list | grep -c  "control-center" ) -eq "1" ]; then
+    $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/main.yml"
+    $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/monitoring/requirements.yml"
+    $ANSIBLE_RUNNER "ansible-galaxy install -r dependencies/user-mgmt/requirements.yml"
+    echo "${GREEN}Control Center Configuration Done!${NC}"
+fi
+
+if [ $(multipass list | grep -c  "mmonit" ) -eq "1" ]; then
+    # Install & Configure Monit on all Nodes
+    create_monit_playbook_from_template
+    $ANSIBLE_RUNNER "ansible-playbook playbooks/control-center/transfer-monit-playbook.yml"
+    echo "${GREEN}Monit Transfer to Control Center Done!${NC}"
+fi
+
+# Create ansible users in all Nodes
 $ANSIBLE_RUNNER "ansible-playbook playbooks/createusers.yml"
 echo "${GREEN}User Mgmt for All Nodes Done!${NC}"
 
